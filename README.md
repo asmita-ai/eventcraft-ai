@@ -9,6 +9,9 @@
 [![Repo Size](https://img.shields.io/badge/Repo%20Size-%3C%202%20MB%20(Limit%20%3C10MB)-success?style=flat-square)](https://hack2skill.com)
 [![Zero Quota Failure](https://img.shields.io/badge/Quota%20Resilience-100%25%20Guaranteed-amber?style=flat-square)](https://aistudio.google.com)
 
+**🌐 Live Deployed Application:** [https://asmita-ai.github.io/eventcraft-ai/](https://asmita-ai.github.io/eventcraft-ai/)  
+**📂 Public GitHub Repository:** [https://github.com/asmita-ai/eventcraft-ai](https://github.com/asmita-ai/eventcraft-ai)
+
 ---
 
 ## 🎯 Executive Summary & Challenge 5 Alignment
@@ -146,6 +149,9 @@ Introducing EventCraft AI — a GenAI event orchestrator built to turn inspirati
 ✨ Mid-Flight Plan Revision Simulator (gracefully rebalances mid-stream pivots like +50 guests, -15% budget, -2 weeks earlier without restarting from scratch)
 
 ⚡ Tech Stack: React, TypeScript, Tailwind CSS, Google Gemini 2.5 Flash, Vitest. Built with 100% quota-resilience guarantee!
+
+🔗 Public GitHub: https://github.com/asmita-ai/eventcraft-ai
+🌐 Live Webpage: https://asmita-ai.github.io/eventcraft-ai/
 
 #PromptWars #GenAI #VibeCoding #Hack2Skill #GoogleCloud #WebDevelopment #EventPlanning
 ```

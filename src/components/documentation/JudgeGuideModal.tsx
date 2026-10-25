@@ -46,6 +46,9 @@ Introducing EventCraft AI — a GenAI event orchestrator built to turn inspirati
 
 ⚡ Tech Stack: React, TypeScript, Tailwind CSS, Google Gemini 2.5 Flash, Vitest. Built with 100% quota-resilience guarantee!
 
+🔗 Public GitHub: https://github.com/asmita-ai/eventcraft-ai
+🌐 Live Webpage: https://asmita-ai.github.io/eventcraft-ai/
+
 #PromptWars #GenAI #VibeCoding #Hack2Skill #GoogleCloud #WebDevelopment #EventPlanning`;
 
   const updatesDescription = `v1.0.0 Challenge 5 Release:
