@@ -25,7 +25,7 @@ describe('EventCraft UI Components & Accessibility', () => {
     expect(screen.getByText(/EventCraft AI/i)).toBeInTheDocument();
     expect(screen.getByText(/Challenge 5/i)).toBeInTheDocument();
     expect(screen.getByText(/Quota-Safe Mode/i)).toBeInTheDocument();
-    expect(screen.getByText(/Judge Guide/i)).toBeInTheDocument();
+    expect(screen.getByText(/System Architecture/i)).toBeInTheDocument();
   });
 
   it('renders BudgetDashboard with categorized expenses and over-budget engine', () => {

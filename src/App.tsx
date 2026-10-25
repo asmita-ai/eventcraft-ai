@@ -494,7 +494,7 @@ export const App: React.FC = () => {
               onClick={() => setIsJudgeGuideOpen(true)}
               className="text-purple-600 hover:underline font-semibold"
             >
-              Evaluator Guide & Prompt Flows
+              System Architecture Dossier
             </button>
             <span>•</span>
             <button

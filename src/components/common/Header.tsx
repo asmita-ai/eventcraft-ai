@@ -137,14 +137,14 @@ export const Header: React.FC<HeaderProps> = ({
               )}
             </button>
 
-            {/* Judge & Documentation Modal Trigger */}
+            {/* System Architecture Modal Trigger */}
             <button
               onClick={onOpenJudgeGuide}
               className="flex items-center gap-1.5 px-3 py-1.5 bg-purple-50 text-purple-700 hover:bg-purple-100 border border-purple-200 rounded-lg text-xs font-semibold transition-all shadow-2xs"
-              title="View Challenge 5 requirements mapping, prompt flow & evaluation checklist"
+              title="View Challenge 5 solution mapping, GenAI architecture & automated test metrics"
             >
               <FileText className="w-3.5 h-3.5" />
-              <span className="hidden sm:inline">Judge Guide</span>
+              <span className="hidden sm:inline">System Architecture</span>
             </button>
 
             {/* Export Plan */}
