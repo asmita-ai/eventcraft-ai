@@ -174,9 +174,8 @@ export function checkBudgetOverage(items: BudgetItem[], targetBudget: number) {
 }
 
 /**
- * Generate intelligent trade-offs for over-budget scenarios.
- * Follows SME Srinivas's explicit principle:
- * Never just blindly cut costs everywhere; preserve what the family/organizer values most!
+ * Generate intelligent trade-offs for over-budget scenarios:
+ * Never blindly cut costs everywhere; preserve what the family/organizer values most!
  */
 export function generateTradeOffSuggestions(
   profile: EventProfile,
@@ -317,7 +316,7 @@ export function computeTimelineCascade(
 }
 
 /**
- * The "Srinivas Stress Test" Plan Revision Analyzer:
+ * Adaptive Plan Revision Analyzer:
  * Handles mid-flight change: +50 guests, -15% budget, date 2 weeks earlier.
  * Computes ripple effects across Budget, Timeline, Vendor, and Demographics.
  */

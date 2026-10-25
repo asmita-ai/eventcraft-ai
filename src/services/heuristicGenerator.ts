@@ -38,7 +38,7 @@ export function generateHeuristicPlan(profile: EventProfile): EventPlan {
 }
 
 /**
- * Default preset for the Wedding scenario discussed by SME Srinivas in the explainer video
+ * Default preset for the Wedding celebration scenario
  */
 export const WEDDING_PRESET: EventProfile = {
   id: 'preset-wedding',
@@ -47,7 +47,7 @@ export const WEDDING_PRESET: EventProfile = {
   occasion: 'Traditional & Contemporary Wedding',
   targetDate: new Date(Date.now() + 120 * 24 * 60 * 60 * 1000).toISOString().split('T')[0], // 4 months away
   city: 'Bengaluru / Delhi NCR',
-  totalBudget: 800000, // 8 Lakhs as mentioned by Srinivas
+  totalBudget: 800000, // ₹8 Lakh baseline budget
   currency: 'INR',
   guestCount: 200, // 200 guests as mentioned by Srinivas
   experienceTier: 'balanced-comfort',

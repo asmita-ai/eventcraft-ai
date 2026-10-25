@@ -41,7 +41,7 @@ import { PlanRevisionSimulator } from './components/revision/PlanRevisionSimulat
 import { JudgeGuideModal } from './components/documentation/JudgeGuideModal';
 
 export const App: React.FC = () => {
-  // Current active plan state (initialized to the Srinivas Wedding case)
+  // Current active plan state (initialized to Royal Wedding showcase)
   const [currentPlan, setCurrentPlan] = useState<EventPlan>(() => 
     generateHeuristicPlan(WEDDING_PRESET)
   );
@@ -295,7 +295,7 @@ export const App: React.FC = () => {
     });
   };
 
-  // Apply Mid-Flight Revised Plan (The Srinivas Stress Test)
+  // Apply Mid-Flight Revised Plan (Dynamic Stress Scenario)
   const handleApplyRevisedPlan = (
     revisedProfile: EventProfile,
     revisedBudget: BudgetItem[],
@@ -407,7 +407,7 @@ export const App: React.FC = () => {
             { id: 'timeline', label: '2. Roadmap & Cascade Timeline', icon: <Calendar className="w-4 h-4" /> },
             { id: 'vendors', label: '3. Vendor RFPs & Quotes', icon: <Building2 className="w-4 h-4" /> },
             { id: 'ideas', label: '4. Demographic Ideas Studio', icon: <Lightbulb className="w-4 h-4" /> },
-            { id: 'revision', label: '5. Plan Revision Simulator (Srinivas Test)', icon: <GitCompare className="w-4 h-4" /> },
+            { id: 'revision', label: '5. Adaptive Plan Revision Simulator', icon: <GitCompare className="w-4 h-4" /> },
           ].map((tab) => (
             <button
               key={tab.id}

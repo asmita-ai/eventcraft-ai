@@ -96,7 +96,7 @@ export const TimelineManager: React.FC<TimelineManagerProps> = ({
             <span>Cascade Delay Alert — Downstream Tasks Blocked!</span>
           </div>
           <p className="text-xs text-rose-800 leading-relaxed">
-            As emphasized by SME Srinivas, when an earlier prerequisite slips (like Venue & Date lock), downstream vendors and invitations are placed on hold. {delayedTasks.length} milestones are currently flagged:
+            When a foundational prerequisite slips (like Venue & Date lock), downstream vendors and invitations are placed on hold. {delayedTasks.length} milestones are currently affected:
           </p>
           <div className="flex flex-wrap gap-2 pt-1">
             {delayedTasks.map((t) => (

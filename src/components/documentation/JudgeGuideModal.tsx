@@ -31,11 +31,11 @@ GenAI is utilized in:
 2. Timeline Dependency Orchestration: Structures milestones with prerequisites, calculating ripple delays when predecessors slip.
 3. Vendor RFP & Quotation Audit: Parses vendor quotes to unmask hidden charges (taxes, generator diesel, overtime penalties) and generate high-leverage negotiation questions.
 4. Demographic Personalization Studio: Crafts tailored entertainment & catering concepts for elderly and child demographics with 1-click budget-friendly alternatives.
-5. Mid-Flight Plan Revision Engine: Evaluates the "Srinivas Stress Test" (+50 guests, -15% budget, -2 weeks) to rebalance budgets without starting from scratch.`;
+5. Mid-Flight Plan Revision Engine: Dynamically recalculates ripple effects when parameters change (+50 guests, -15% budget, -2 weeks) to rebalance budgets without starting from scratch.`;
 
   const linkedinDraft = `🚀 Excited to submit Challenge 5 for Prompt Wars Virtual on Hack2Skill: "Celebration & Event Planner"!
 
-Traditional event planning often devolves into generic idea generation. But as Subject Matter Expert Srinivas noted in the explainer session, event planning is an interconnected system: change guest counts, and catering surges; delay a venue, and invitations stall.
+Traditional event planning often devolves into generic idea generation. But real-world event planning is an interconnected system: change guest counts, and catering surges; delay a venue, and invitations stall.
 
 Introducing EventCraft AI — a GenAI event orchestrator built to turn inspiration into execution:
 ✨ Interconnected Budget & 20% Over-Budget Trade-Off Analyzer (respects priorities, never slashes blindly)
@@ -56,7 +56,7 @@ Introducing EventCraft AI — a GenAI event orchestrator built to turn inspirati
 - Built Interconnected Budget Dashboard with explicit [AI Estimate] vs [Confirmed Quote] labels and 20% Over-Budget Trade-Off Simulator.
 - Implemented Dependency-Aware Timeline with real-time cascade delay warning alerts.
 - Built Vendor RFP & Multi-Quote Comparator with hidden-fee auditing and negotiation tips.
-- Built Mid-Flight Plan Revision Simulator solving the exact Srinivas benchmark test.
+- Built Mid-Flight Plan Revision Simulator solving dynamic requirement shifts (+50 guests, -15% budget, -2 weeks).
 - Added comprehensive Vitest automated test suite ensuring high code quality.`;
 
   return (
@@ -102,7 +102,7 @@ Introducing EventCraft AI — a GenAI event orchestrator built to turn inspirati
                 { title: 'Dependency-Aware Timelines', desc: 'Prerequisite tracking; slipping milestones trigger cascade delay alerts.' },
                 { title: 'Vendor RFP & Multi-Quote Comparison', desc: 'Side-by-side quote analyzer flagging hidden taxes, diesel fees & overtime.' },
                 { title: 'Demographic Personalization', desc: 'Calibrated to senior-citizen comfort, child activity corners & cultural traditions.' },
-                { title: 'The "Srinivas Stress Test" (Plan Revision)', desc: 'Adaptive simulation of mid-stream changes (+50 guests, -15% budget, -2 weeks).' },
+                { title: 'Adaptive Mid-Flight Plan Revision', desc: 'Dynamic simulation of mid-stream changes (+50 guests, -15% budget, -2 weeks).' },
               ].map((item, idx) => (
                 <div key={idx} className="p-3 bg-emerald-50/60 border border-emerald-200/80 rounded-xl space-y-0.5">
                   <span className="font-bold text-emerald-950 flex items-center gap-1.5">

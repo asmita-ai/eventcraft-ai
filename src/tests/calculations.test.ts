@@ -112,7 +112,7 @@ describe('EventCraft Calculation & Logic Engine', () => {
     expect(blockedCatering?.cascadeImpactDesc).toContain('Lock Venue & Date');
   });
 
-  it('satisfies the SME Srinivas Stress Test: adapts mid-stream changes without restart', () => {
+  it('adapts mid-stream changes dynamically without restarting from scratch', () => {
     const items = calculateBudgetAllocation(WEDDING_PRESET);
     const sampleTasks: TimelineTask[] = [
       {

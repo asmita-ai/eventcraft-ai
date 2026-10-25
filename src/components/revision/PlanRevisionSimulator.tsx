@@ -25,7 +25,7 @@ export const PlanRevisionSimulator: React.FC<PlanRevisionSimulatorProps> = ({
   timeline,
   onApplyRevisedPlan,
 }) => {
-  // Scenario inputs matching Srinivas's exact words: +50 guests, -15% budget, -2 weeks
+  // Scenario inputs: +50 guests, -15% budget, -2 weeks
   const [guestDelta, setGuestDelta] = useState<number>(50);
   const [budgetDeltaPercent, setBudgetDeltaPercent] = useState<number>(-15);
   const [dateShiftWeeks, setDateShiftWeeks] = useState<number>(-2);
@@ -71,7 +71,7 @@ export const PlanRevisionSimulator: React.FC<PlanRevisionSimulatorProps> = ({
   return (
     <div className="space-y-6 animate-fade-in">
       
-      {/* Top Banner explaining the SME Srinivas Stress Test */}
+      {/* Top Banner explaining the Adaptive Revision Engine */}
       <div className="p-5 bg-gradient-to-r from-amber-500/10 via-purple-500/10 to-pink-500/10 rounded-2xl border border-amber-300/80 shadow-xs space-y-2.5">
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
           <div className="flex items-center gap-2.5">
@@ -83,12 +83,12 @@ export const PlanRevisionSimulator: React.FC<PlanRevisionSimulatorProps> = ({
                 <h3 className="font-extrabold text-slate-900 text-sm">
                   Mid-Flight Plan Revision & Ripple Effect Simulator
                 </h3>
-                <span className="px-2 py-0.5 rounded text-[10px] font-bold bg-amber-200 text-amber-950 uppercase">
-                  Golden Challenge Criterion
+                <span className="px-2 py-0.5 rounded text-[10px] font-bold bg-purple-100 text-purple-900 uppercase">
+                  Dynamic Rebalancing
                 </span>
               </div>
               <p className="text-xs text-slate-600 mt-0.5">
-                Evaluates the core question posed by Subject Matter Expert Srinivas: When unexpected mid-stream changes occur, does the user have to restart from scratch, or does the AI dynamically rebalance the interconnected plan?
+                Solves the ultimate event planning challenge: When unexpected mid-stream changes occur, does the user have to restart from scratch, or does the AI dynamically rebalance the interconnected plan?
               </p>
             </div>
           </div>
@@ -102,7 +102,7 @@ export const PlanRevisionSimulator: React.FC<PlanRevisionSimulatorProps> = ({
             }}
             className="px-3.5 py-2 bg-gradient-to-r from-purple-600 to-pink-600 hover:opacity-95 text-white font-extrabold text-xs rounded-xl shadow-xs shrink-0"
           >
-            ⚡ Load SME Benchmark Case (+50G, -15%, -2W)
+            ⚡ Load Stress Scenario (+50G, -15%, -2W)
           </button>
         </div>
       </div>

@@ -370,7 +370,7 @@ export const ScopingWizard: React.FC<ScopingWizardProps> = ({
           {step === 3 && (
             <div className="space-y-4 animate-fade-in">
               <div className="p-3 bg-purple-50 border border-purple-200 rounded-xl text-xs text-purple-900">
-                <strong>Why priorities matter:</strong> In Challenge 5, SME Srinivas noted that when trade-offs arise, the AI must never cut costs blindly. Weighting these categories directs where the AI invests versus economizes!
+                <strong>Why priorities matter:</strong> When trade-offs arise, the system must never cut costs blindly. Weighting these categories directs where the AI invests versus economizes!
               </div>
 
               <div className="space-y-3">

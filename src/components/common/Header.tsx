@@ -60,7 +60,7 @@ export const Header: React.FC<HeaderProps> = ({
                     ? 'bg-white text-purple-700 shadow-xs font-semibold'
                     : 'text-slate-600 hover:text-slate-900 hover:bg-slate-200/60'
                 }`}
-                title="Srinivas Explainer Case: ₹8 Lakh, 200 Guests, 4 Months"
+                title="Full Wedding Showcase: ₹8 Lakh, 200 Guests, 4 Months"
               >
                 💍 Wedding (₹8L)
               </button>

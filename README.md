@@ -18,8 +18,7 @@
 
 Most AI event planning tools act like simple search engines, generating generic checklists like *"Here are 10 wedding themes"*. 
 
-As highlighted by Subject Matter Expert **Mr. Srinivas** in the Prompt Wars explainer session:
-> *"Event planning isn't one single problem; it is a collection of connected constraints. If the guest count changes, catering costs surge. If the venue slips, decor timelines freeze. If budget gets squeezed, users need intelligent trade-offs rather than blind cost-cutting."*
+In the real world, event planning is an interconnected system of living constraints: if the guest count changes, catering costs surge; if the venue slips, decor timelines freeze; if budgets get squeezed, hosts need intelligent trade-offs rather than blind cost-cutting.
 
 **EventCraft AI** transforms event planning into an interconnected, adaptive orchestration system. It balances human priorities across budgets, milestones, vendor proposals, and demographics for weddings, milestone birthdays, and community festivals.
 
@@ -67,8 +66,8 @@ flowchart TD
   - **Cultural Nuances:** Supports multi-cultural fusion rituals, pure Jain kitchens, and gluten-free dietary needs.
 - **Budget Alternatives:** Every creative idea provides a 1-click low-cost or DIY alternative.
 
-### 5. Mid-Flight Plan Revision Simulator (The "Srinivas Stress Test")
-Built specifically to answer the core benchmark test from the SME explainer:
+### 5. Mid-Flight Plan Revision Simulator (Dynamic Stress Test)
+Built specifically to answer the hardest real-world planning challenge:
 *What if a user returns mid-flight with +50 guests, -15% budget, and date moved 2 weeks earlier?*
 - Evaluates per-guest headroom drop.
 - Audits venue occupancy and fire-safety limits.

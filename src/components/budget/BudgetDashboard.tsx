@@ -118,7 +118,7 @@ export const BudgetDashboard: React.FC<BudgetDashboardProps> = ({
               {budgetItems.filter((i) => !i.isEstimate).length} Confirmed / {budgetItems.length} Total
             </div>
             <span className="text-[10px] text-slate-500 block">
-              SME Rule: Clearly flagged estimates
+              Audited Estimates vs Confirmed
             </span>
           </div>
           <div className="w-10 h-10 rounded-xl bg-amber-50 text-amber-700 flex items-center justify-center font-bold">
@@ -169,7 +169,7 @@ export const BudgetDashboard: React.FC<BudgetDashboardProps> = ({
         </div>
       </div>
 
-      {/* OVER-BUDGET TRADE-OFF ENGINE (Srinivas Explainer Highlight!) */}
+      {/* OVER-BUDGET TRADE-OFF ENGINE */}
       <div className={`p-5 rounded-2xl border transition-all ${
         isOver
           ? 'bg-rose-50/70 border-rose-200'
@@ -186,7 +186,7 @@ export const BudgetDashboard: React.FC<BudgetDashboardProps> = ({
                   {isOver ? `Over-Budget Detected (+${percentOver}%) — Intelligent Trade-Off Engine` : 'Priority-Driven Trade-Off Explorer'}
                 </h3>
                 <span className="px-2 py-0.5 rounded-full text-[10px] font-extrabold uppercase bg-purple-100 text-purple-800">
-                  SME Srinivas Principle
+                  Priority Protection
                 </span>
               </div>
               <p className="text-xs text-slate-600 mt-0.5">
@@ -200,7 +200,7 @@ export const BudgetDashboard: React.FC<BudgetDashboardProps> = ({
           <button
             onClick={onTriggerOverageSimulation}
             className="self-start sm:self-center px-3.5 py-1.5 text-xs font-bold bg-white hover:bg-slate-50 border border-slate-300 text-slate-800 rounded-xl transition-all shadow-2xs whitespace-nowrap"
-            title="Simulate 20% over-budget situation as described by Srinivas"
+            title="Simulate sudden 20% expense surge to evaluate trade-off recommendations"
           >
             🧪 Simulate 20% Over-Budget Case
           </button>

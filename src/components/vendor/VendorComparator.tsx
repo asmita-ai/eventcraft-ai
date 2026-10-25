@@ -99,7 +99,7 @@ export const VendorComparator: React.FC<VendorComparatorProps> = ({
             <div>
               <span className="font-bold">Transparent Multi-Quote Evaluation:</span>
               <p className="mt-0.5 leading-relaxed">
-                As instructed by SME Srinivas, quotes are broken down into per-guest impact, verified inclusions, and flagged hidden charges (taxes, overtime fees, diesel surcharges) to empower objective host decisions.
+                Vendor quotes are systematically broken down into per-guest impact, verified deliverables, and flagged hidden charges (taxes, overtime fees, diesel surcharges) to empower objective host decisions.
               </p>
             </div>
           </div>

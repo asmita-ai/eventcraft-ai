@@ -69,7 +69,7 @@ export const PersonalizedStudio: React.FC<PersonalizedStudioProps> = ({
         </div>
 
         <p className="text-xs text-slate-600 leading-relaxed">
-          SME Srinivas emphasized that a memorable event is tailored specifically to the humans in attendance. These ideas are calibrated to your specific audience mix:
+          A truly memorable celebration is tailored specifically to the humans in attendance. These concepts are calibrated to your specific audience mix:
         </p>
 
         {/* Demographics Pill Bar */}
@@ -157,7 +157,7 @@ export const PersonalizedStudio: React.FC<PersonalizedStudioProps> = ({
                   🎯 <strong>Demographic Fit:</strong> {idea.whyItFitsThisAudience}
                 </div>
 
-                {/* Budget-Friendly Alternative (Srinivas Rule!) */}
+                {/* Budget-Friendly Alternative */}
                 <div className="p-3 bg-amber-50/70 border border-amber-200/80 rounded-xl text-[11px] space-y-1">
                   <div className="flex items-center justify-between text-amber-950 font-bold">
                     <span>💡 Budget-Friendly Alternative:</span>
