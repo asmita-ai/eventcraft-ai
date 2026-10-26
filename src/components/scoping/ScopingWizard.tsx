@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { 
   Sparkles, 
   Calendar, 
@@ -11,6 +11,7 @@ import {
 } from 'lucide-react';
 import { EventProfile, EventType, ExperienceTier, CurrencyCode } from '../../types';
 import { WEDDING_PRESET, BIRTHDAY_PRESET, COMMUNITY_PRESET } from '../../services/heuristicGenerator';
+import { sanitizeString, validateEventConstraints } from '../../utils/security';
 
 interface ScopingWizardProps {
   isOpen: boolean;
@@ -31,9 +32,11 @@ export const ScopingWizard: React.FC<ScopingWizardProps> = ({
   const [eventType, setEventType] = useState<EventType>('wedding');
   const [title, setTitle] = useState<string>('My Dream Celebration');
   const [occasion, setOccasion] = useState<string>('Grand Wedding Celebration');
-  const [targetDate, setTargetDate] = useState<string>(
-    new Date(Date.now() + 100 * 24 * 60 * 60 * 1000).toISOString().split('T')[0]
-  );
+  const [targetDate, setTargetDate] = useState<string>(() => {
+    const d = new Date();
+    d.setDate(d.getDate() + 100);
+    return d.toISOString().split('T')[0];
+  });
   const [city, setCity] = useState<string>('Bengaluru');
   const [totalBudget, setTotalBudget] = useState<number>(800000);
   const [currency, setCurrency] = useState<CurrencyCode>('INR');
@@ -61,6 +64,17 @@ export const ScopingWizard: React.FC<ScopingWizardProps> = ({
   const [mustHavesInput, setMustHavesInput] = useState<string>('Hot live dessert station, Candid storytelling photography');
   const [flexiblesInput, setFlexiblesInput] = useState<string>('Physical invites (can be digital), Stage floral complexity');
 
+  // Escape key handler for accessible modal dismissal
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape' && isOpen) {
+        onClose();
+      }
+    };
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [isOpen, onClose]);
+
   if (!isOpen) return null;
 
   const loadPresetData = (preset: EventProfile) => {
@@ -84,13 +98,19 @@ export const ScopingWizard: React.FC<ScopingWizardProps> = ({
   };
 
   const handleSubmit = () => {
+    const validation = validateEventConstraints(totalBudget, guestCount, targetDate);
+    if (!validation.isValid) {
+      alert(validation.errors.join('\n'));
+      return;
+    }
+
     const profile: EventProfile = {
       id: `event-${Date.now()}`,
-      title,
+      title: sanitizeString(title, 100) || 'Custom Celebration',
       eventType,
-      occasion,
+      occasion: sanitizeString(occasion, 150) || 'Special Gathering',
       targetDate,
-      city,
+      city: sanitizeString(city, 80) || 'Metro City',
       totalBudget,
       currency,
       guestCount,
@@ -99,12 +119,12 @@ export const ScopingWizard: React.FC<ScopingWizardProps> = ({
       demographics: {
         childrenPercent,
         elderlyPercent,
-        culturalBackground,
-        dietaryRestrictions: dietaryList.split(',').map((s) => s.trim()).filter(Boolean),
-        accessibilityNeeds: accessibilityList.split(',').map((s) => s.trim()).filter(Boolean),
+        culturalBackground: sanitizeString(culturalBackground, 120),
+        dietaryRestrictions: dietaryList.split(',').map((s) => sanitizeString(s, 50)).filter(Boolean),
+        accessibilityNeeds: accessibilityList.split(',').map((s) => sanitizeString(s, 50)).filter(Boolean),
       },
-      mustHaves: mustHavesInput.split(',').map((s) => s.trim()).filter(Boolean),
-      flexibles: flexiblesInput.split(',').map((s) => s.trim()).filter(Boolean),
+      mustHaves: mustHavesInput.split(',').map((s) => sanitizeString(s, 100)).filter(Boolean),
+      flexibles: flexiblesInput.split(',').map((s) => sanitizeString(s, 100)).filter(Boolean),
       createdAt: new Date().toISOString(),
       updatedAt: new Date().toISOString(),
     };
@@ -113,7 +133,12 @@ export const ScopingWizard: React.FC<ScopingWizardProps> = ({
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/60 backdrop-blur-xs animate-fade-in">
+    <div 
+      role="dialog" 
+      aria-modal="true" 
+      aria-labelledby="wizard-modal-title" 
+      className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/60 backdrop-blur-xs animate-fade-in"
+    >
       <div className="bg-white rounded-2xl max-w-2xl w-full shadow-2xl border border-slate-200 overflow-hidden flex flex-col max-h-[92vh]">
         
         {/* Wizard Header */}
@@ -123,7 +148,7 @@ export const ScopingWizard: React.FC<ScopingWizardProps> = ({
               <Sparkles className="w-5 h-5" />
             </div>
             <div>
-              <h2 className="text-base font-bold text-slate-900">Event Scoping & Intake Wizard</h2>
+              <h2 id="wizard-modal-title" className="text-base font-bold text-slate-900">Event Scoping & Intake Wizard</h2>
               <p className="text-xs text-slate-500">Step {step} of 4 — Tailoring your plan constraints</p>
             </div>
           </div>
@@ -420,6 +445,10 @@ export const ScopingWizard: React.FC<ScopingWizardProps> = ({
                     max="50"
                     step="5"
                     value={childrenPercent}
+                    aria-label="Children percentage of guests"
+                    aria-valuenow={childrenPercent}
+                    aria-valuemin={0}
+                    aria-valuemax={50}
                     onChange={(e) => setChildrenPercent(Number(e.target.value))}
                     className="w-full accent-purple-600"
                   />
@@ -435,6 +464,10 @@ export const ScopingWizard: React.FC<ScopingWizardProps> = ({
                     max="60"
                     step="5"
                     value={elderlyPercent}
+                    aria-label="Elderly percentage of guests"
+                    aria-valuenow={elderlyPercent}
+                    aria-valuemin={0}
+                    aria-valuemax={60}
                     onChange={(e) => setElderlyPercent(Number(e.target.value))}
                     className="w-full accent-purple-600"
                   />

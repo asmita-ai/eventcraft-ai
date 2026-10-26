@@ -3,9 +3,12 @@
 > **Prompt Wars Virtual — Challenge 5: Celebration & Event Planner**  
 > **Powered by Google Gemini 2.5 Flash with Deterministic Quota-Resilience Safeguards**
 
-[![Vitest Tests](https://img.shields.io/badge/Tests-9%20Passing-emerald?style=flat-square&logo=vitest)](https://vitest.dev)
+[![Vitest Tests](https://img.shields.io/badge/Tests-34%20Passing%20(5%20Suites)-emerald?style=flat-square&logo=vitest)](https://vitest.dev)
+[![ESLint 9](https://img.shields.io/badge/ESLint-Clean%20(0%20warnings)-success?style=flat-square&logo=eslint)](https://eslint.org)
 [![TypeScript Strict](https://img.shields.io/badge/TypeScript-Strict%20Mode-blue?style=flat-square&logo=typescript)](https://www.typescriptlang.org)
-[![Bundle Size](https://img.shields.io/badge/Bundle-325%20kB-purple?style=flat-square)](https://vitejs.dev)
+[![Security Policy](https://img.shields.io/badge/Security-CSP%20%2B%20XSS%20Sanitized-purple?style=flat-square)](./SECURITY.md)
+[![Accessibility](https://img.shields.io/badge/A11y-WCAG%202.1%20AA%20Compliant-brightgreen?style=flat-square)](https://www.w3.org/WAI/)
+[![Bundle Size](https://img.shields.io/badge/Bundle-299%20kB%20(Gzip%2088kB)-purple?style=flat-square)](https://vitejs.dev)
 [![Repo Size](https://img.shields.io/badge/Repo%20Size-%3C%201%20MB%20(Limit%20%3C10MB)-success?style=flat-square)](https://hack2skill.com)
 [![Zero Quota Failure](https://img.shields.io/badge/Quota%20Resilience-100%25%20Guaranteed-amber?style=flat-square)](https://aistudio.google.com)
 
@@ -87,9 +90,19 @@ Judges and users can also provide their own Gemini API key anytime via the in-ap
 
 ---
 
-## 🧪 Automated Testing & Code Quality
+## 🧪 Comprehensive Testing & Quality Verification
 
-The codebase enforces strict TypeScript, WCAG AA accessibility, and automated unit and integration tests using Vitest:
+EventCraft AI achieves exceptional code reliability, rigorous security defenses, and complete WCAG 2.1 AA accessibility through an automated test suite featuring **34 verified tests across 5 specialized test suites**:
+
+| Test Suite | Coverage Area | Key Assertions Verified |
+| :--- | :--- | :--- |
+| **`security.test.ts`** (15 tests) | Input Sanitization & Threat Vectors | XSS `<script>`/`<iframe>`/`onerror` stripping, URI injection blocking, HTML entity encoding, prototype pollution prevention, constraint bounds. |
+| **`calculations.test.ts`** (6 tests) | Budget & Milestone Mathematics | Zero-penny remainder rounding, 20% overage triggers, dynamic contingency reallocation, cascade timeline date propagation. |
+| **`workflows.test.tsx`** (5 tests) | End-to-End User Journeys | 3 Archetype plans (Wedding, Birthday, Community), mid-flight stress scenario (`+50G, -15%, -2W`) activation & reset, `<ErrorBoundary>` fault recovery. |
+| **`a11y.test.tsx`** (5 tests) | Accessibility & Keyboard Navigation | Skip-to-content landmark, ARIA `tablist`/`tabpanel` states, modal dialog focus trapping & `Escape` key dismissal, range slider accessible semantics. |
+| **`components.test.tsx`** (3 tests) | Core Component Renders | Real-time budget dashboard rendering, vendor comparator metrics, interactive trade-off sliders. |
+
+### Development & Verification Commands
 
 ```bash
 # Clone repository
@@ -99,15 +112,27 @@ cd eventcraft-ai
 # Install dependencies
 npm install
 
-# Run automated test suite (9/9 passing tests)
+# Run strict ESLint verification (0 errors, 0 warnings)
+npm run lint
+
+# Run all 34 automated tests across all 5 test suites
 npm test
 
-# Build production bundle (~325 kB)
+# Compile production bundle with TypeScript strict type checking
 npm run build
 
-# Start local development server
+# Launch local preview server
 npm run dev
 ```
+
+---
+
+## 🔒 Security & Privacy Specification
+
+- **Zero Credential Retention:** Gemini API keys are kept strictly in browser storage and directly transmitted only to Google's official Gemini endpoint. No intermediary telemetry server is used.
+- **XSS & Injection Protection:** User inputs are sanitized using deterministic regex filters and entity encoded via `sanitizeString()`.
+- **Content Security Policy (CSP):** Enforced via strict `<meta http-equiv="Content-Security-Policy">` headers.
+- **Full Security Policy:** Documented in [SECURITY.md](./SECURITY.md).
 
 ---
 

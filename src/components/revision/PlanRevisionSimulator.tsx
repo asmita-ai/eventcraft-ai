@@ -194,11 +194,16 @@ export const PlanRevisionSimulator: React.FC<PlanRevisionSimulatorProps> = ({
               </span>
             </div>
             <input
+              id="revision-guest-delta"
               type="range"
               min="-100"
               max="200"
               step="10"
               value={guestDelta}
+              aria-label="Simulated guest count shift"
+              aria-valuenow={guestDelta}
+              aria-valuemin={-100}
+              aria-valuemax={200}
               onChange={(e) => {
                 const val = Number(e.target.value);
                 setGuestDelta(val);
@@ -225,11 +230,16 @@ export const PlanRevisionSimulator: React.FC<PlanRevisionSimulatorProps> = ({
               </span>
             </div>
             <input
+              id="revision-budget-delta"
               type="range"
               min="-40"
               max="50"
               step="5"
               value={budgetDeltaPercent}
+              aria-label="Simulated budget percentage shift"
+              aria-valuenow={budgetDeltaPercent}
+              aria-valuemin={-40}
+              aria-valuemax={50}
               onChange={(e) => {
                 const val = Number(e.target.value);
                 setBudgetDeltaPercent(val);
@@ -256,11 +266,16 @@ export const PlanRevisionSimulator: React.FC<PlanRevisionSimulatorProps> = ({
               </span>
             </div>
             <input
+              id="revision-date-shift"
               type="range"
               min="-6"
               max="6"
               step="1"
               value={dateShiftWeeks}
+              aria-label="Simulated timeline shift in weeks"
+              aria-valuenow={dateShiftWeeks}
+              aria-valuemin={-6}
+              aria-valuemax={6}
               onChange={(e) => {
                 const val = Number(e.target.value);
                 setDateShiftWeeks(val);

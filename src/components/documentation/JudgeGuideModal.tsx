@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { 
   FileText, 
   Sparkles, 
@@ -14,10 +14,26 @@ interface JudgeGuideModalProps {
 }
 
 export const JudgeGuideModal: React.FC<JudgeGuideModalProps> = ({ isOpen, onClose }) => {
+  // Accessible Escape key handler
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape' && isOpen) {
+        onClose();
+      }
+    };
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [isOpen, onClose]);
+
   if (!isOpen) return null;
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/60 backdrop-blur-xs animate-fade-in">
+    <div 
+      role="dialog" 
+      aria-modal="true" 
+      aria-labelledby="judge-guide-title"
+      className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/60 backdrop-blur-xs animate-fade-in"
+    >
       <div className="bg-white rounded-2xl max-w-3xl w-full shadow-2xl border border-slate-200 overflow-hidden flex flex-col max-h-[90vh]">
         
         {/* Header */}
@@ -27,7 +43,7 @@ export const JudgeGuideModal: React.FC<JudgeGuideModalProps> = ({ isOpen, onClos
               <FileText className="w-5 h-5" />
             </div>
             <div>
-              <h3 className="font-bold text-slate-900 text-base">Evaluator Architecture & System Dossier</h3>
+              <h3 id="judge-guide-title" className="font-bold text-slate-900 text-base">Evaluator Architecture & System Dossier</h3>
               <p className="text-xs text-slate-500">EventCraft AI — Prompt Wars Virtual Challenge 5</p>
             </div>
           </div>

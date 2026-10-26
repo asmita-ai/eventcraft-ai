@@ -10,6 +10,7 @@ import {
   MessageSquare
 } from 'lucide-react';
 import { EventProfile, PersonalizedIdea } from '../../types';
+import { sanitizeString } from '../../utils/security';
 
 interface PersonalizedStudioProps {
   profile: EventProfile;
@@ -45,8 +46,9 @@ export const PersonalizedStudio: React.FC<PersonalizedStudioProps> = ({
     : ideas.filter((i) => i.category === filter);
 
   const handleSendFeedback = (title: string) => {
-    if (!feedbackText.trim()) return;
-    onRefineWithAI(title, feedbackText);
+    const cleanFeedback = sanitizeString(feedbackText, 300);
+    if (!cleanFeedback) return;
+    onRefineWithAI(title, cleanFeedback);
     setFeedbackText('');
     setActiveFeedbackId(null);
   };

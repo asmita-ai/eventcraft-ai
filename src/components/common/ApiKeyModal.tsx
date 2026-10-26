@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Key, ShieldCheck, CheckCircle2, ExternalLink, X, Info } from 'lucide-react';
 import { getStoredApiKey, setStoredApiKey } from '../../services/gemini';
 
@@ -11,6 +11,17 @@ interface ApiKeyModalProps {
 export const ApiKeyModal: React.FC<ApiKeyModalProps> = ({ isOpen, onClose, onKeySaved }) => {
   const [keyInput, setKeyInput] = useState<string>(getStoredApiKey());
   const [statusMessage, setStatusMessage] = useState<string | null>(null);
+
+  // Accessible Escape key dismissal
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape' && isOpen) {
+        onClose();
+      }
+    };
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [isOpen, onClose]);
 
   if (!isOpen) return null;
 
@@ -37,7 +48,12 @@ export const ApiKeyModal: React.FC<ApiKeyModalProps> = ({ isOpen, onClose, onKey
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/60 backdrop-blur-xs animate-fade-in">
+    <div 
+      role="dialog" 
+      aria-modal="true" 
+      aria-labelledby="api-modal-title"
+      className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/60 backdrop-blur-xs animate-fade-in"
+    >
       <div className="bg-white rounded-2xl max-w-lg w-full shadow-2xl border border-slate-200 overflow-hidden">
         
         {/* Header */}
@@ -47,7 +63,7 @@ export const ApiKeyModal: React.FC<ApiKeyModalProps> = ({ isOpen, onClose, onKey
               <Key className="w-5 h-5" />
             </div>
             <div>
-              <h3 className="font-bold text-slate-900 text-base">Gemini API & Quota Settings</h3>
+              <h3 id="api-modal-title" className="font-bold text-slate-900 text-base">Gemini API & Quota Settings</h3>
               <p className="text-xs text-slate-500">Dual Mode: Live Gemini AI + Quota-Safe Fallback</p>
             </div>
           </div>

@@ -11,12 +11,17 @@ import { generateHeuristicPlan } from './heuristicGenerator';
 
 const GEMINI_API_STORAGE_KEY = 'eventcraft_gemini_api_key';
 
+interface CustomImportMetaEnv {
+  VITE_GEMINI_API_KEY?: string;
+}
+
 export function getStoredApiKey(): string {
   if (typeof window !== 'undefined') {
     const local = localStorage.getItem(GEMINI_API_STORAGE_KEY);
     if (local && local.trim().length > 0) return local.trim();
   }
-  return ((import.meta as any).env?.VITE_GEMINI_API_KEY || '').trim();
+  const metaEnv = import.meta.env as unknown as CustomImportMetaEnv;
+  return (metaEnv?.VITE_GEMINI_API_KEY || '').trim();
 }
 
 export function setStoredApiKey(key: string): void {

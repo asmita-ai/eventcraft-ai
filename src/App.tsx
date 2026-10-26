@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import confetti from 'canvas-confetti';
 import { 
   IndianRupee, 
@@ -40,6 +40,8 @@ import { PersonalizedStudio } from './components/ideas/PersonalizedStudio';
 import { PlanRevisionSimulator } from './components/revision/PlanRevisionSimulator';
 import { JudgeGuideModal } from './components/documentation/JudgeGuideModal';
 
+export type AppTab = 'budget' | 'timeline' | 'vendors' | 'ideas' | 'revision';
+
 export const App: React.FC = () => {
   // Current active plan state (initialized to Royal Wedding showcase)
   const [currentPlan, setCurrentPlan] = useState<EventPlan>(() => 
@@ -47,7 +49,7 @@ export const App: React.FC = () => {
   );
 
   // Active navigation tab
-  const [activeTab, setActiveTab] = useState<'budget' | 'timeline' | 'vendors' | 'ideas' | 'revision'>('budget');
+  const [activeTab, setActiveTab] = useState<AppTab>('budget');
 
   // Modals & UI state
   const [isApiKeyModalOpen, setIsApiKeyModalOpen] = useState<boolean>(false);
@@ -55,17 +57,12 @@ export const App: React.FC = () => {
   const [isWizardOpen, setIsWizardOpen] = useState<boolean>(false);
   const [isLoadingAI, setIsLoadingAI] = useState<boolean>(false);
   const [hasApiKey, setHasApiKey] = useState<boolean>(() => Boolean(getStoredApiKey()));
-  const [toast, setToast] = useState<ToastMessage | null>(null);
-
-  // Show welcome toast on mount
-  useEffect(() => {
-    setToast({
-      id: 'welcome',
-      type: 'info',
-      title: 'Prompt Wars Challenge 5 Ready',
-      message: 'Sharma & Verma Wedding preset loaded (₹8 Lakh, 200 Guests, 4 Months). Explore interconnected trade-offs and timelines!',
-    });
-  }, []);
+  const [toast, setToast] = useState<ToastMessage | null>(() => ({
+    id: 'welcome',
+    type: 'info',
+    title: 'Prompt Wars Challenge 5 Ready',
+    message: 'Sharma & Verma Wedding preset loaded (₹8 Lakh, 200 Guests, 4 Months). Explore interconnected trade-offs and timelines!',
+  }));
 
   const triggerCelebration = () => {
     try {
@@ -342,6 +339,14 @@ export const App: React.FC = () => {
   return (
     <div className="min-h-full flex flex-col bg-slate-50 text-slate-900 font-sans">
       
+      {/* Skip to Main Content Landmark for Screen Readers & Keyboard Navigation */}
+      <a 
+        href="#main-content" 
+        className="sr-only focus:not-sr-only focus:fixed focus:top-3 focus:left-3 z-50 bg-purple-700 text-white font-bold px-4 py-2 rounded-xl shadow-lg focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-purple-500"
+      >
+        Skip to main content
+      </a>
+
       {/* Top Header */}
       <Header
         currentProfile={currentPlan.profile}
@@ -354,7 +359,7 @@ export const App: React.FC = () => {
       />
 
       {/* Main Content Area */}
-      <main className="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-6 space-y-6">
+      <main id="main-content" tabIndex={-1} className="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-6 space-y-6 focus:outline-none">
         
         {/* Event Vitals Hero Banner */}
         <section aria-label="Event Overview" className="p-5 sm:p-6 bg-white rounded-3xl border border-slate-200 shadow-xs relative overflow-hidden">
@@ -400,19 +405,28 @@ export const App: React.FC = () => {
           </div>
         </section>
 
-        {/* Tab Navigation Navigation Bar */}
-        <div className="flex items-center gap-2 border-b border-slate-200 overflow-x-auto pb-px">
-          {[
+        {/* Tab Navigation Bar with ARIA Tablist semantics */}
+        <div 
+          role="tablist" 
+          aria-label="Event planning modules"
+          className="flex items-center gap-2 border-b border-slate-200 overflow-x-auto pb-px"
+        >
+          {([
             { id: 'budget', label: '1. Budget & Trade-Offs', icon: <IndianRupee className="w-4 h-4" /> },
             { id: 'timeline', label: '2. Roadmap & Cascade Timeline', icon: <Calendar className="w-4 h-4" /> },
             { id: 'vendors', label: '3. Vendor RFPs & Quotes', icon: <Building2 className="w-4 h-4" /> },
             { id: 'ideas', label: '4. Demographic Ideas Studio', icon: <Lightbulb className="w-4 h-4" /> },
             { id: 'revision', label: '5. Adaptive Plan Revision Simulator', icon: <GitCompare className="w-4 h-4" /> },
-          ].map((tab) => (
+          ] as const).map((tab) => (
             <button
               key={tab.id}
-              onClick={() => setActiveTab(tab.id as any)}
-              className={`flex items-center gap-2 px-4 py-3 text-xs sm:text-sm font-bold border-b-2 transition-all whitespace-nowrap ${
+              id={`tab-${tab.id}`}
+              role="tab"
+              aria-selected={activeTab === tab.id}
+              aria-controls={`panel-${tab.id}`}
+              tabIndex={activeTab === tab.id ? 0 : -1}
+              onClick={() => setActiveTab(tab.id)}
+              className={`flex items-center gap-2 px-4 py-3 text-xs sm:text-sm font-bold border-b-2 transition-all whitespace-nowrap focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-purple-600 focus-visible:ring-offset-1 rounded-t-lg ${
                 activeTab === tab.id
                   ? 'border-purple-600 text-purple-700 bg-purple-50/50'
                   : 'border-transparent text-slate-500 hover:text-slate-800 hover:border-slate-300'
@@ -424,8 +438,13 @@ export const App: React.FC = () => {
           ))}
         </div>
 
-        {/* ACTIVE TAB CONTENT */}
-        <section aria-label="Tab Content">
+        {/* ACTIVE TAB CONTENT with ARIA Tabpanel semantics */}
+        <section 
+          id={`panel-${activeTab}`} 
+          role="tabpanel" 
+          aria-labelledby={`tab-${activeTab}`}
+          aria-label={`${activeTab} module view`}
+        >
           {activeTab === 'budget' && (
             <BudgetDashboard
               profile={currentPlan.profile}
