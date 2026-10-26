@@ -4,7 +4,11 @@
 
 @layer base {
   body {
-    font-family: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+    font-family:
+      'Plus Jakarta Sans',
+      system-ui,
+      -apple-system,
+      sans-serif;
   }
 }
 
@@ -26,7 +30,10 @@
 
 /* Print styles for export */
 @media print {
-  header, nav, button, .no-print {
+  header,
+  nav,
+  button,
+  .no-print {
     display: none !important;
   }
   body {

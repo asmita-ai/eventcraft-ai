@@ -36,6 +36,12 @@ jobs:
       - name: Run ESLint verification
         run: npm run lint
 
+      - name: Run TypeScript typecheck
+        run: npm run typecheck
+
+      - name: Run Prettier format check
+        run: npm run format:check
+
       - name: Run automated test suite
         run: npm test
 

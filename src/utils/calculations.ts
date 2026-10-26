@@ -1,11 +1,11 @@
-import { 
-  EventProfile, 
-  BudgetItem, 
-  BudgetCategoryKey, 
-  TradeOffSuggestion, 
-  TimelineTask, 
-  PlanRevisionAnalysis, 
-  RippleEffectItem 
+import {
+  EventProfile,
+  BudgetItem,
+  BudgetCategoryKey,
+  TradeOffSuggestion,
+  TimelineTask,
+  PlanRevisionAnalysis,
+  RippleEffectItem,
 } from '../types';
 
 /**
@@ -23,22 +23,22 @@ const BASELINE_DISTRIBUTIONS: Record<string, Record<BudgetCategoryKey, number>> 
     contingency: 0.05,
   },
   birthday: {
-    venue: 0.20,
+    venue: 0.2,
     catering: 0.38,
     decoration: 0.18,
     photography: 0.08,
-    entertainment: 0.10,
+    entertainment: 0.1,
     attire: 0.01,
     logistics: 0.01,
     contingency: 0.04,
   },
   community: {
     venue: 0.25,
-    catering: 0.30,
+    catering: 0.3,
     decoration: 0.15,
     photography: 0.05,
     entertainment: 0.12,
-    attire: 0.00,
+    attire: 0.0,
     logistics: 0.08,
     contingency: 0.05,
   },
@@ -55,10 +55,10 @@ const BASELINE_DISTRIBUTIONS: Record<string, Record<BudgetCategoryKey, number>> 
   corporate: {
     venue: 0.28,
     catering: 0.32,
-    decoration: 0.10,
+    decoration: 0.1,
     photography: 0.06,
     entertainment: 0.12,
-    attire: 0.00,
+    attire: 0.0,
     logistics: 0.07,
     contingency: 0.05,
   },
@@ -112,7 +112,9 @@ export function calculateBudgetAllocation(profile: EventProfile): BudgetItem[] {
     const normWeight = adjustedWeights[cat] / totalWeight;
     const allocated = Math.round(profile.totalBudget * normWeight);
     const isVariable = cat === 'catering' || cat === 'contingency';
-    const perGuest = isVariable ? Math.round(allocated / Math.max(profile.guestCount, 1)) : undefined;
+    const perGuest = isVariable
+      ? Math.round(allocated / Math.max(profile.guestCount, 1))
+      : undefined;
 
     return {
       id: `budget-${cat}`,
@@ -132,7 +134,8 @@ export function calculateBudgetAllocation(profile: EventProfile): BudgetItem[] {
   const currentSum = items.reduce((sum, i) => sum + i.allocatedAmount, 0);
   const remainder = profile.totalBudget - currentSum;
   if (remainder !== 0) {
-    const contingencyItem = items.find((i) => i.category === 'contingency') || items[items.length - 1];
+    const contingencyItem =
+      items.find((i) => i.category === 'contingency') || items[items.length - 1];
     contingencyItem.allocatedAmount += remainder;
   }
 
@@ -303,9 +306,10 @@ export function computeTimelineCascade(
   }
 
   const updatedTasks = Array.from(taskMap.values());
-  const warningMessage = blockedTasks.length > 0
-    ? `Delaying "${delayedTask.title}" has triggered a cascade delay across ${blockedTasks.length} downstream milestones (${blockedTasks.map((t) => t.title).join(', ')}).`
-    : `"${delayedTask.title}" is delayed, but has no downstream dependencies blocked.`;
+  const warningMessage =
+    blockedTasks.length > 0
+      ? `Delaying "${delayedTask.title}" has triggered a cascade delay across ${blockedTasks.length} downstream milestones (${blockedTasks.map((t) => t.title).join(', ')}).`
+      : `"${delayedTask.title}" is delayed, but has no downstream dependencies blocked.`;
 
   return {
     updatedTasks,
@@ -345,7 +349,8 @@ export function analyzePlanRevision(
       severity: 'danger',
       title: 'High Per-Guest Cost Squeeze',
       description: `Guest count increased by +${changes.guestDelta} (${newGuestCount} total) while budget shrank by ${Math.abs(changes.budgetDeltaPercent)}%. Per-guest spending drops from ${profile.currency} ${Math.round(profile.totalBudget / profile.guestCount)} to ${profile.currency} ${Math.round(newBudget / newGuestCount)}.`,
-      recommendedAction: 'Rebalance catering menu to high-yield signature items and shift 12% from decor/attire into the food pool.',
+      recommendedAction:
+        'Rebalance catering menu to high-yield signature items and shift 12% from decor/attire into the food pool.',
     });
   }
 
@@ -357,7 +362,8 @@ export function analyzePlanRevision(
       severity: 'warning',
       title: 'Venue Capacity & Fire-Safety Check Required',
       description: `With +${changes.guestDelta} additional attendees, confirm whether the hall or lawn contract permits ${newGuestCount} seated capacity with floating space.`,
-      recommendedAction: 'Contact venue manager immediately to verify maximum legal occupancy, chair rentals, and restroom ratio.',
+      recommendedAction:
+        'Contact venue manager immediately to verify maximum legal occupancy, chair rentals, and restroom ratio.',
     });
   }
 
@@ -370,7 +376,8 @@ export function analyzePlanRevision(
       severity: 'danger',
       title: `Event Date Shifted ${weeksTighter} Weeks Sooner`,
       description: `The preparation window has shrunk by ${weeksTighter * 7} days. Critical vendor lead times (Custom stage fabrication, bridal wear, personalized favor boxes) are at risk.`,
-      recommendedAction: 'Fast-track vendor finalization into a 48-hour sprint. Switch custom fabrication items to readymade modular inventory.',
+      recommendedAction:
+        'Fast-track vendor finalization into a 48-hour sprint. Switch custom fabrication items to readymade modular inventory.',
     });
   }
 
@@ -382,7 +389,8 @@ export function analyzePlanRevision(
       severity: 'info',
       title: 'Catering Headcount Re-estimate',
       description: `Catering cost is highly variable. Headcount of ${newGuestCount} requires updated food plate counts and 10% buffet buffer.`,
-      recommendedAction: 'Send updated RSVP headcount lock date to caterer 7 days prior to avoid over-ordering wastage.',
+      recommendedAction:
+        'Send updated RSVP headcount lock date to caterer 7 days prior to avoid over-ordering wastage.',
     });
   }
 

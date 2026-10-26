@@ -29,7 +29,11 @@ export const ApiKeyModal: React.FC<ApiKeyModalProps> = ({ isOpen, onClose, onKey
     const trimmed = keyInput.trim();
     setStoredApiKey(trimmed);
     onKeySaved(trimmed.length > 0);
-    setStatusMessage(trimmed.length > 0 ? 'Gemini API Key saved successfully!' : 'Switched to Quota-Safe Heuristic Mode.');
+    setStatusMessage(
+      trimmed.length > 0
+        ? 'Gemini API Key saved successfully!'
+        : 'Switched to Quota-Safe Heuristic Mode.'
+    );
     setTimeout(() => {
       setStatusMessage(null);
       onClose();
@@ -48,14 +52,13 @@ export const ApiKeyModal: React.FC<ApiKeyModalProps> = ({ isOpen, onClose, onKey
   };
 
   return (
-    <div 
-      role="dialog" 
-      aria-modal="true" 
+    <div
+      role="dialog"
+      aria-modal="true"
       aria-labelledby="api-modal-title"
       className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/60 backdrop-blur-xs animate-fade-in"
     >
       <div className="bg-white rounded-2xl max-w-lg w-full shadow-2xl border border-slate-200 overflow-hidden">
-        
         {/* Header */}
         <div className="flex items-center justify-between px-6 py-4 border-b border-slate-100 bg-gradient-to-r from-purple-50 to-pink-50">
           <div className="flex items-center gap-2.5">
@@ -63,8 +66,12 @@ export const ApiKeyModal: React.FC<ApiKeyModalProps> = ({ isOpen, onClose, onKey
               <Key className="w-5 h-5" />
             </div>
             <div>
-              <h3 id="api-modal-title" className="font-bold text-slate-900 text-base">Gemini API & Quota Settings</h3>
-              <p className="text-xs text-slate-500">Dual Mode: Live Gemini AI + Quota-Safe Fallback</p>
+              <h3 id="api-modal-title" className="font-bold text-slate-900 text-base">
+                Gemini API & Quota Settings
+              </h3>
+              <p className="text-xs text-slate-500">
+                Dual Mode: Live Gemini AI + Quota-Safe Fallback
+              </p>
             </div>
           </div>
           <button
@@ -78,7 +85,6 @@ export const ApiKeyModal: React.FC<ApiKeyModalProps> = ({ isOpen, onClose, onKey
 
         {/* Content */}
         <div className="p-6 space-y-4">
-          
           {/* Resilience Note for Hackathon Evaluators */}
           <div className="p-3.5 rounded-xl bg-amber-50 border border-amber-200 text-xs text-amber-900 space-y-1">
             <div className="flex items-center gap-1.5 font-bold text-amber-950">
@@ -86,12 +92,17 @@ export const ApiKeyModal: React.FC<ApiKeyModalProps> = ({ isOpen, onClose, onKey
               <span>Zero-Quota-Failure Guarantee</span>
             </div>
             <p>
-              As highlighted in the Hackathon Explainer session, evaluator credits often expire. EventCraft AI features an intelligent, deterministic heuristic engine that functions <strong>100% offline without crashing</strong> even if no API key is supplied!
+              As highlighted in the Hackathon Explainer session, evaluator credits often expire.
+              EventCraft AI features an intelligent, deterministic heuristic engine that functions{' '}
+              <strong>100% offline without crashing</strong> even if no API key is supplied!
             </p>
           </div>
 
           <div className="space-y-2">
-            <label htmlFor="gemini-key-input" className="block text-xs font-semibold text-slate-700">
+            <label
+              htmlFor="gemini-key-input"
+              className="block text-xs font-semibold text-slate-700"
+            >
               Google Gemini API Key (Optional / Bring Your Own)
             </label>
             <input
@@ -129,7 +140,8 @@ export const ApiKeyModal: React.FC<ApiKeyModalProps> = ({ isOpen, onClose, onKey
               <span>Model Routing Hierarchy:</span>
             </div>
             <p className="font-mono text-[11px] text-slate-700">
-              1. gemini-2.5-flash &nbsp;→&nbsp; 2. gemini-1.5-flash &nbsp;→&nbsp; 3. Heuristic Engine
+              1. gemini-2.5-flash &nbsp;→&nbsp; 2. gemini-1.5-flash &nbsp;→&nbsp; 3. Heuristic
+              Engine
             </p>
           </div>
         </div>
@@ -160,7 +172,6 @@ export const ApiKeyModal: React.FC<ApiKeyModalProps> = ({ isOpen, onClose, onKey
             </button>
           </div>
         </div>
-
       </div>
     </div>
   );

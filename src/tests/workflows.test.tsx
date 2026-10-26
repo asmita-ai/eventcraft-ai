@@ -9,11 +9,11 @@ vi.mock('canvas-confetti', () => ({
 
 import { PlanRevisionSimulator } from '../components/revision/PlanRevisionSimulator';
 import { ErrorBoundary } from '../components/common/ErrorBoundary';
-import { 
-  WEDDING_PRESET, 
-  BIRTHDAY_PRESET, 
-  COMMUNITY_PRESET, 
-  generateHeuristicPlan 
+import {
+  WEDDING_PRESET,
+  BIRTHDAY_PRESET,
+  COMMUNITY_PRESET,
+  generateHeuristicPlan,
 } from '../services/heuristicGenerator';
 
 describe('EventCraft AI End-to-End Workflows & Edge Cases', () => {

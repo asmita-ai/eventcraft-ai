@@ -25,7 +25,11 @@ export class ErrorBoundary extends Component<Props, State> {
   public override componentDidCatch(error: Error, errorInfo: ErrorInfo) {
     this.setState({ errorInfo });
     // Secure diagnostic logging without sensitive data leakage
-    console.error('ErrorBoundary caught an unhandled runtime error:', error.message, errorInfo.componentStack);
+    console.error(
+      'ErrorBoundary caught an unhandled runtime error:',
+      error.message,
+      errorInfo.componentStack
+    );
   }
 
   private handleReload = () => {
@@ -45,8 +49,8 @@ export class ErrorBoundary extends Component<Props, State> {
   public override render() {
     if (this.state.hasError) {
       return (
-        <div 
-          role="alert" 
+        <div
+          role="alert"
           aria-live="assertive"
           className="min-h-screen bg-slate-900 text-slate-100 flex items-center justify-center p-4 sm:p-6"
         >
@@ -60,7 +64,8 @@ export class ErrorBoundary extends Component<Props, State> {
                 Something went unexpected
               </h1>
               <p className="text-sm text-slate-400">
-                EventCraft AI encountered an unexpected UI state. Your data is protected by client-side fault-isolation.
+                EventCraft AI encountered an unexpected UI state. Your data is protected by
+                client-side fault-isolation.
               </p>
             </div>
 

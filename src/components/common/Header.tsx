@@ -1,7 +1,11 @@
 import React from 'react';
 import { Sparkles, FileText, Download, ShieldCheck, Zap } from 'lucide-react';
 import { EventProfile } from '../../types';
-import { WEDDING_PRESET, BIRTHDAY_PRESET, COMMUNITY_PRESET } from '../../services/heuristicGenerator';
+import {
+  WEDDING_PRESET,
+  BIRTHDAY_PRESET,
+  COMMUNITY_PRESET,
+} from '../../services/heuristicGenerator';
 
 interface HeaderProps {
   currentProfile: EventProfile;
@@ -26,7 +30,6 @@ export const Header: React.FC<HeaderProps> = ({
     <header className="sticky top-0 z-30 bg-white/95 backdrop-blur-md border-b border-slate-200 shadow-xs">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16 gap-4">
-          
           {/* Logo & Hackathon Badge */}
           <div className="flex items-center gap-3">
             <div className="w-10 h-10 rounded-xl bg-gradient-to-tr from-purple-600 via-fuchsia-600 to-pink-500 flex items-center justify-center text-white shadow-md shadow-fuchsia-200">
@@ -113,7 +116,6 @@ export const Header: React.FC<HeaderProps> = ({
 
           {/* Action Tools & Evaluator Shortcuts */}
           <div className="flex items-center gap-2">
-            
             {/* AI Engine Status Pill */}
             <button
               onClick={onOpenApiKeyModal}
@@ -157,7 +159,6 @@ export const Header: React.FC<HeaderProps> = ({
               <span className="hidden md:inline">Export</span>
             </button>
           </div>
-
         </div>
       </div>
     </header>

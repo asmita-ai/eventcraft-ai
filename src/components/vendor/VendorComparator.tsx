@@ -1,13 +1,13 @@
 import React, { useState } from 'react';
-import { 
-  HelpCircle, 
-  Copy, 
-  Check, 
-  AlertTriangle, 
-  ShieldAlert, 
-  CheckCircle2, 
-  Star, 
-  FileSearch 
+import {
+  HelpCircle,
+  Copy,
+  Check,
+  AlertTriangle,
+  ShieldAlert,
+  CheckCircle2,
+  Star,
+  FileSearch,
 } from 'lucide-react';
 import { EventProfile, VendorQuoteComparison, VendorRfpTemplate } from '../../types';
 import { formatCurrency } from '../../utils/currency';
@@ -41,10 +41,8 @@ export const VendorComparator: React.FC<VendorComparatorProps> = ({
 
   return (
     <div className="space-y-6 animate-fade-in">
-      
       {/* Top Controls: Category & Sub-tab Switcher */}
       <div className="p-4 bg-white rounded-2xl border border-slate-200 shadow-xs flex flex-col sm:flex-row sm:items-center justify-between gap-4">
-        
         {/* Category Pills */}
         <div className="flex items-center gap-1.5 overflow-x-auto pb-1 sm:pb-0">
           {[
@@ -72,7 +70,9 @@ export const VendorComparator: React.FC<VendorComparatorProps> = ({
           <button
             onClick={() => setActiveTab('compare')}
             className={`px-3 py-1.5 rounded-lg transition-all ${
-              activeTab === 'compare' ? 'bg-white text-purple-700 shadow-2xs font-bold' : 'text-slate-600 hover:text-slate-900'
+              activeTab === 'compare'
+                ? 'bg-white text-purple-700 shadow-2xs font-bold'
+                : 'text-slate-600 hover:text-slate-900'
             }`}
           >
             📊 Side-by-Side Comparison ({filteredQuotes.length})
@@ -80,26 +80,28 @@ export const VendorComparator: React.FC<VendorComparatorProps> = ({
           <button
             onClick={() => setActiveTab('rfp')}
             className={`px-3 py-1.5 rounded-lg transition-all ${
-              activeTab === 'rfp' ? 'bg-white text-purple-700 shadow-2xs font-bold' : 'text-slate-600 hover:text-slate-900'
+              activeTab === 'rfp'
+                ? 'bg-white text-purple-700 shadow-2xs font-bold'
+                : 'text-slate-600 hover:text-slate-900'
             }`}
           >
             📝 RFP & Questions to Ask
           </button>
         </div>
-
       </div>
 
       {/* TAB 1: SIDE-BY-SIDE QUOTATION COMPARATOR */}
       {activeTab === 'compare' && (
         <div className="space-y-4">
-          
           {/* Transparency & Audit Notice */}
           <div className="p-3.5 bg-blue-50 border border-blue-200 rounded-xl text-xs text-blue-900 flex items-start gap-2.5">
             <FileSearch className="w-4 h-4 text-blue-600 shrink-0 mt-0.5" />
             <div>
               <span className="font-bold">Transparent Multi-Quote Evaluation:</span>
               <p className="mt-0.5 leading-relaxed">
-                Vendor quotes are systematically broken down into per-guest impact, verified deliverables, and flagged hidden charges (taxes, overtime fees, diesel surcharges) to empower objective host decisions.
+                Vendor quotes are systematically broken down into per-guest impact, verified
+                deliverables, and flagged hidden charges (taxes, overtime fees, diesel surcharges)
+                to empower objective host decisions.
               </p>
             </div>
           </div>
@@ -153,12 +155,9 @@ export const VendorComparator: React.FC<VendorComparatorProps> = ({
 
                   {/* Card Body */}
                   <div className="p-4 space-y-3.5 flex-1 text-xs">
-                    
                     {/* Inclusions */}
                     <div>
-                      <span className="font-bold text-slate-700 block mb-1">
-                        Key Inclusions:
-                      </span>
+                      <span className="font-bold text-slate-700 block mb-1">Key Inclusions:</span>
                       <ul className="space-y-1">
                         {quote.inclusions.map((inc, i) => (
                           <li key={i} className="flex items-start gap-1.5 text-slate-600">
@@ -198,7 +197,6 @@ export const VendorComparator: React.FC<VendorComparatorProps> = ({
                         ))}
                       </div>
                     )}
-
                   </div>
 
                   {/* Card Footer: Shortlist CTA */}
@@ -217,7 +215,6 @@ export const VendorComparator: React.FC<VendorComparatorProps> = ({
                       {isShortlisted ? 'Shortlisted ✓' : 'Shortlist Vendor'}
                     </button>
                   </div>
-
                 </div>
               );
             })}
@@ -234,10 +231,19 @@ export const VendorComparator: React.FC<VendorComparatorProps> = ({
               <p className="text-xs text-slate-500 mt-0.5">{activeRfp.overviewPrompt}</p>
             </div>
             <button
-              onClick={() => handleCopyText('rfp-all', `${activeRfp.title}\n\nQuestions to Ask:\n${activeRfp.questionsToAsk.join('\n')}\n\nRequired Deliverables:\n${activeRfp.keyDeliverablesRequired.join('\n')}`)}
+              onClick={() =>
+                handleCopyText(
+                  'rfp-all',
+                  `${activeRfp.title}\n\nQuestions to Ask:\n${activeRfp.questionsToAsk.join('\n')}\n\nRequired Deliverables:\n${activeRfp.keyDeliverablesRequired.join('\n')}`
+                )
+              }
               className="flex items-center gap-1.5 px-3 py-1.5 bg-purple-50 text-purple-700 hover:bg-purple-100 border border-purple-200 rounded-xl text-xs font-bold transition-colors self-start"
             >
-              {copiedId === 'rfp-all' ? <Check className="w-3.5 h-3.5 text-emerald-600" /> : <Copy className="w-3.5 h-3.5" />}
+              {copiedId === 'rfp-all' ? (
+                <Check className="w-3.5 h-3.5 text-emerald-600" />
+              ) : (
+                <Copy className="w-3.5 h-3.5" />
+              )}
               <span>{copiedId === 'rfp-all' ? 'Copied to Clipboard!' : 'Copy Complete RFP'}</span>
             </button>
           </div>
@@ -250,7 +256,10 @@ export const VendorComparator: React.FC<VendorComparatorProps> = ({
             </h4>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-2.5">
               {activeRfp.questionsToAsk.map((q, i) => (
-                <div key={i} className="p-3 bg-slate-50 border border-slate-200 rounded-xl text-xs text-slate-700 leading-relaxed flex items-start gap-2">
+                <div
+                  key={i}
+                  className="p-3 bg-slate-50 border border-slate-200 rounded-xl text-xs text-slate-700 leading-relaxed flex items-start gap-2"
+                >
                   <span className="font-bold text-purple-600 shrink-0">{i + 1}.</span>
                   <span>{q}</span>
                 </div>
@@ -266,7 +275,10 @@ export const VendorComparator: React.FC<VendorComparatorProps> = ({
             </h4>
             <div className="space-y-2">
               {activeRfp.keyDeliverablesRequired.map((del, i) => (
-                <div key={i} className="p-2.5 bg-emerald-50/60 border border-emerald-200/80 rounded-xl text-xs text-emerald-950 flex items-center gap-2">
+                <div
+                  key={i}
+                  className="p-2.5 bg-emerald-50/60 border border-emerald-200/80 rounded-xl text-xs text-emerald-950 flex items-center gap-2"
+                >
                   <span className="w-1.5 h-1.5 rounded-full bg-emerald-600" />
                   <span>{del}</span>
                 </div>
@@ -288,10 +300,8 @@ export const VendorComparator: React.FC<VendorComparatorProps> = ({
               ))}
             </div>
           )}
-
         </div>
       )}
-
     </div>
   );
 };

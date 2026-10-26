@@ -1,13 +1,13 @@
 import React, { useState } from 'react';
-import { 
-  Sparkles, 
-  Heart, 
-  Smile, 
-  Accessibility, 
-  UtensilsCrossed, 
-  Palette, 
-  Tag, 
-  MessageSquare
+import {
+  Sparkles,
+  Heart,
+  Smile,
+  Accessibility,
+  UtensilsCrossed,
+  Palette,
+  Tag,
+  MessageSquare,
 } from 'lucide-react';
 import { EventProfile, PersonalizedIdea } from '../../types';
 import { sanitizeString } from '../../utils/security';
@@ -39,11 +39,12 @@ export const PersonalizedStudio: React.FC<PersonalizedStudioProps> = ({
     decor: <Tag className="w-4 h-4 text-pink-600" />,
   };
 
-  const filteredIdeas = filter === 'all'
-    ? ideas
-    : filter === 'favorites'
-    ? ideas.filter((i) => i.favorited)
-    : ideas.filter((i) => i.category === filter);
+  const filteredIdeas =
+    filter === 'all'
+      ? ideas
+      : filter === 'favorites'
+        ? ideas.filter((i) => i.favorited)
+        : ideas.filter((i) => i.category === filter);
 
   const handleSendFeedback = (title: string) => {
     const cleanFeedback = sanitizeString(feedbackText, 300);
@@ -55,7 +56,6 @@ export const PersonalizedStudio: React.FC<PersonalizedStudioProps> = ({
 
   return (
     <div className="space-y-6 animate-fade-in">
-      
       {/* Audience Demographics Header Banner */}
       <div className="p-5 bg-gradient-to-r from-purple-50 via-pink-50 to-amber-50 rounded-2xl border border-purple-200/80 shadow-xs space-y-3">
         <div className="flex items-center justify-between">
@@ -71,7 +71,8 @@ export const PersonalizedStudio: React.FC<PersonalizedStudioProps> = ({
         </div>
 
         <p className="text-xs text-slate-600 leading-relaxed">
-          A truly memorable celebration is tailored specifically to the humans in attendance. These concepts are calibrated to your specific audience mix:
+          A truly memorable celebration is tailored specifically to the humans in attendance. These
+          concepts are calibrated to your specific audience mix:
         </p>
 
         {/* Demographics Pill Bar */}
@@ -86,7 +87,10 @@ export const PersonalizedStudio: React.FC<PersonalizedStudioProps> = ({
             🏛️ Heritage: {d.culturalBackground}
           </span>
           {d.dietaryRestrictions.map((diet, i) => (
-            <span key={i} className="px-3 py-1 bg-white rounded-xl border border-emerald-200 text-emerald-900 font-medium">
+            <span
+              key={i}
+              className="px-3 py-1 bg-white rounded-xl border border-emerald-200 text-emerald-900 font-medium"
+            >
               🥗 {diet}
             </span>
           ))}
@@ -121,20 +125,19 @@ export const PersonalizedStudio: React.FC<PersonalizedStudioProps> = ({
               className="bg-white rounded-2xl border border-slate-200 shadow-xs hover:shadow-md transition-all p-5 flex flex-col justify-between space-y-4"
             >
               <div className="space-y-3">
-                
                 {/* Header */}
                 <div className="flex items-start justify-between gap-3">
                   <div className="flex items-center gap-2">
                     <div className="p-2 rounded-xl bg-slate-50 border border-slate-200">
-                      {categoryIcons[idea.category] || <Sparkles className="w-4 h-4 text-purple-600" />}
+                      {categoryIcons[idea.category] || (
+                        <Sparkles className="w-4 h-4 text-purple-600" />
+                      )}
                     </div>
                     <div>
                       <span className="text-[10px] font-bold text-slate-400 uppercase tracking-wider block">
                         {idea.category} Concept
                       </span>
-                      <h4 className="text-sm font-extrabold text-slate-900">
-                        {idea.title}
-                      </h4>
+                      <h4 className="text-sm font-extrabold text-slate-900">{idea.title}</h4>
                     </div>
                   </div>
 
@@ -142,7 +145,9 @@ export const PersonalizedStudio: React.FC<PersonalizedStudioProps> = ({
                     onClick={() => onToggleFavorite(idea.id)}
                     aria-label="Favorite idea"
                     className={`p-2 rounded-xl transition-colors ${
-                      idea.favorited ? 'text-rose-600 bg-rose-50' : 'text-slate-400 hover:bg-slate-100'
+                      idea.favorited
+                        ? 'text-rose-600 bg-rose-50'
+                        : 'text-slate-400 hover:bg-slate-100'
                     }`}
                   >
                     <Heart className={`w-4 h-4 ${idea.favorited ? 'fill-rose-600' : ''}`} />
@@ -150,9 +155,7 @@ export const PersonalizedStudio: React.FC<PersonalizedStudioProps> = ({
                 </div>
 
                 {/* Concept Narrative */}
-                <p className="text-xs text-slate-700 leading-relaxed">
-                  {idea.concept}
-                </p>
+                <p className="text-xs text-slate-700 leading-relaxed">{idea.concept}</p>
 
                 {/* Why it fits this audience */}
                 <div className="p-2.5 bg-purple-50/70 border border-purple-200/60 rounded-xl text-[11px] text-purple-950 font-medium">
@@ -165,11 +168,8 @@ export const PersonalizedStudio: React.FC<PersonalizedStudioProps> = ({
                     <span>💡 Budget-Friendly Alternative:</span>
                     <span className="font-mono text-[10px]">{idea.estimatedCostRange}</span>
                   </div>
-                  <p className="text-amber-900 leading-relaxed">
-                    {idea.budgetFriendlyAlternative}
-                  </p>
+                  <p className="text-amber-900 leading-relaxed">{idea.budgetFriendlyAlternative}</p>
                 </div>
-
               </div>
 
               {/* Bottom Actions */}
@@ -209,12 +209,10 @@ export const PersonalizedStudio: React.FC<PersonalizedStudioProps> = ({
                   </div>
                 )}
               </div>
-
             </div>
           );
         })}
       </div>
-
     </div>
   );
 };

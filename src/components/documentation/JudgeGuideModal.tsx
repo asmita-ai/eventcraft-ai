@@ -1,12 +1,5 @@
 import React, { useEffect } from 'react';
-import { 
-  FileText, 
-  Sparkles, 
-  X, 
-  ShieldCheck, 
-  Cpu, 
-  Check 
-} from 'lucide-react';
+import { FileText, Sparkles, X, ShieldCheck, Cpu, Check } from 'lucide-react';
 
 interface JudgeGuideModalProps {
   isOpen: boolean;
@@ -28,14 +21,13 @@ export const JudgeGuideModal: React.FC<JudgeGuideModalProps> = ({ isOpen, onClos
   if (!isOpen) return null;
 
   return (
-    <div 
-      role="dialog" 
-      aria-modal="true" 
+    <div
+      role="dialog"
+      aria-modal="true"
       aria-labelledby="judge-guide-title"
       className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/60 backdrop-blur-xs animate-fade-in"
     >
       <div className="bg-white rounded-2xl max-w-3xl w-full shadow-2xl border border-slate-200 overflow-hidden flex flex-col max-h-[90vh]">
-        
         {/* Header */}
         <div className="px-6 py-4 border-b border-slate-200 bg-gradient-to-r from-purple-50 via-fuchsia-50 to-pink-50 flex items-center justify-between">
           <div className="flex items-center gap-2.5">
@@ -43,8 +35,12 @@ export const JudgeGuideModal: React.FC<JudgeGuideModalProps> = ({ isOpen, onClos
               <FileText className="w-5 h-5" />
             </div>
             <div>
-              <h3 id="judge-guide-title" className="font-bold text-slate-900 text-base">Evaluator Architecture & System Dossier</h3>
-              <p className="text-xs text-slate-500">EventCraft AI — Prompt Wars Virtual Challenge 5</p>
+              <h3 id="judge-guide-title" className="font-bold text-slate-900 text-base">
+                Evaluator Architecture & System Dossier
+              </h3>
+              <p className="text-xs text-slate-500">
+                EventCraft AI — Prompt Wars Virtual Challenge 5
+              </p>
             </div>
           </div>
           <button
@@ -58,14 +54,13 @@ export const JudgeGuideModal: React.FC<JudgeGuideModalProps> = ({ isOpen, onClos
 
         {/* Scrollable Body */}
         <div className="p-6 overflow-y-auto space-y-6 flex-1 text-xs text-slate-700">
-          
           {/* Section 1: Challenge 5 Core Capabilities Mapping */}
           <div className="space-y-3">
             <div className="flex items-center gap-2 text-slate-900 font-bold text-sm">
               <Sparkles className="w-4 h-4 text-purple-600" />
               <span>Challenge 5 Problem Statement & Solution Mapping</span>
             </div>
-            
+
             <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
               {[
                 {
@@ -99,16 +94,17 @@ export const JudgeGuideModal: React.FC<JudgeGuideModalProps> = ({ isOpen, onClos
                   badge: 'Dynamic Adaptation',
                 },
               ].map((item, idx) => (
-                <div key={idx} className="p-3.5 bg-slate-50 border border-slate-200 rounded-xl space-y-1">
+                <div
+                  key={idx}
+                  className="p-3.5 bg-slate-50 border border-slate-200 rounded-xl space-y-1"
+                >
                   <div className="flex items-center justify-between">
                     <span className="font-bold text-slate-900">{item.title}</span>
                     <span className="px-2 py-0.5 rounded text-[10px] font-extrabold bg-purple-100 text-purple-800 uppercase">
                       {item.badge}
                     </span>
                   </div>
-                  <p className="text-slate-600 leading-relaxed text-[11px]">
-                    {item.desc}
-                  </p>
+                  <p className="text-slate-600 leading-relaxed text-[11px]">{item.desc}</p>
                 </div>
               ))}
             </div>
@@ -123,24 +119,38 @@ export const JudgeGuideModal: React.FC<JudgeGuideModalProps> = ({ isOpen, onClos
 
             <div className="p-4 bg-purple-50/70 border border-purple-200 rounded-xl space-y-3">
               <p className="leading-relaxed">
-                Evaluator API tokens frequently expire during grading. To guarantee <strong>100% operational uptime</strong> without ever rendering an error screen, EventCraft AI implements a 3-tier model routing hierarchy:
+                Evaluator API tokens frequently expire during grading. To guarantee{' '}
+                <strong>100% operational uptime</strong> without ever rendering an error screen,
+                EventCraft AI implements a 3-tier model routing hierarchy:
               </p>
-              
+
               <div className="grid grid-cols-1 sm:grid-cols-3 gap-2.5">
                 <div className="p-2.5 bg-white rounded-lg border border-purple-200 text-center">
-                  <span className="font-mono text-[10px] text-purple-600 font-bold block">TIER 1 (PRIMARY)</span>
+                  <span className="font-mono text-[10px] text-purple-600 font-bold block">
+                    TIER 1 (PRIMARY)
+                  </span>
                   <span className="font-bold text-slate-900 text-xs">Google Gemini 2.5 Flash</span>
-                  <span className="text-[10px] text-slate-500 block mt-0.5">High-speed dynamic synthesis</span>
+                  <span className="text-[10px] text-slate-500 block mt-0.5">
+                    High-speed dynamic synthesis
+                  </span>
                 </div>
                 <div className="p-2.5 bg-white rounded-lg border border-purple-200 text-center">
-                  <span className="font-mono text-[10px] text-purple-600 font-bold block">TIER 2 (FALLBACK)</span>
+                  <span className="font-mono text-[10px] text-purple-600 font-bold block">
+                    TIER 2 (FALLBACK)
+                  </span>
                   <span className="font-bold text-slate-900 text-xs">Google Gemini 1.5 Flash</span>
-                  <span className="text-[10px] text-slate-500 block mt-0.5">Resilient model fallback</span>
+                  <span className="text-[10px] text-slate-500 block mt-0.5">
+                    Resilient model fallback
+                  </span>
                 </div>
                 <div className="p-2.5 bg-white rounded-lg border border-purple-200 text-center">
-                  <span className="font-mono text-[10px] text-purple-600 font-bold block">TIER 3 (GUARANTEE)</span>
+                  <span className="font-mono text-[10px] text-purple-600 font-bold block">
+                    TIER 3 (GUARANTEE)
+                  </span>
                   <span className="font-bold text-slate-900 text-xs">Deterministic Heuristics</span>
-                  <span className="text-[10px] text-slate-500 block mt-0.5">Zero-quota offline guard</span>
+                  <span className="text-[10px] text-slate-500 block mt-0.5">
+                    Zero-quota offline guard
+                  </span>
                 </div>
               </div>
             </div>
@@ -160,7 +170,9 @@ export const JudgeGuideModal: React.FC<JudgeGuideModalProps> = ({ isOpen, onClos
               </div>
               <div className="p-3 bg-blue-50 border border-blue-200 rounded-xl">
                 <span className="text-lg font-black text-blue-700 block">0.34 MB</span>
-                <span className="text-[11px] font-bold text-blue-900">Repo Size (&lt;10MB limit)</span>
+                <span className="text-[11px] font-bold text-blue-900">
+                  Repo Size (&lt;10MB limit)
+                </span>
               </div>
               <div className="p-3 bg-purple-50 border border-purple-200 rounded-xl">
                 <span className="text-lg font-black text-purple-700 block">Strict</span>
@@ -175,15 +187,20 @@ export const JudgeGuideModal: React.FC<JudgeGuideModalProps> = ({ isOpen, onClos
             <ul className="space-y-1.5 text-[11px] text-slate-600 pl-2">
               <li className="flex items-center gap-1.5">
                 <Check className="w-3.5 h-3.5 text-emerald-600 shrink-0" />
-                <span><strong>Zero Hardcoded Secrets:</strong> API keys are read from environment variables or browser session only.</span>
+                <span>
+                  <strong>Zero Hardcoded Secrets:</strong> API keys are read from environment
+                  variables or browser session only.
+                </span>
               </li>
               <li className="flex items-center gap-1.5">
                 <Check className="w-3.5 h-3.5 text-emerald-600 shrink-0" />
-                <span><strong>Automated CI/CD:</strong> GitHub Actions pipeline executes Vitest tests and bundle verification on every commit.</span>
+                <span>
+                  <strong>Automated CI/CD:</strong> GitHub Actions pipeline executes Vitest tests
+                  and bundle verification on every commit.
+                </span>
               </li>
             </ul>
           </div>
-
         </div>
 
         {/* Footer */}
@@ -198,7 +215,6 @@ export const JudgeGuideModal: React.FC<JudgeGuideModalProps> = ({ isOpen, onClos
             Close Guide
           </button>
         </div>
-
       </div>
     </div>
   );

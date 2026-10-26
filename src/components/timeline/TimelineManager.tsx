@@ -1,12 +1,5 @@
 import React, { useState } from 'react';
-import { 
-  Calendar, 
-  Clock, 
-  AlertTriangle, 
-  CheckCircle2, 
-  GitFork, 
-  ShieldAlert 
-} from 'lucide-react';
+import { Calendar, Clock, AlertTriangle, CheckCircle2, GitFork, ShieldAlert } from 'lucide-react';
 import { TimelineTask, TaskPriority, TaskStatus } from '../../types';
 
 interface TimelineManagerProps {
@@ -32,9 +25,8 @@ export const TimelineManager: React.FC<TimelineManagerProps> = ({
   const completedTasks = tasks.filter((t) => t.status === 'completed');
   const progressPercent = Math.round((completedTasks.length / Math.max(tasks.length, 1)) * 100);
 
-  const filteredTasks = filterCategory === 'all' 
-    ? tasks 
-    : tasks.filter((t) => t.category === filterCategory);
+  const filteredTasks =
+    filterCategory === 'all' ? tasks : tasks.filter((t) => t.category === filterCategory);
 
   const priorityColors: Record<TaskPriority, string> = {
     critical: 'bg-rose-100 text-rose-800 border-rose-200',
@@ -52,7 +44,6 @@ export const TimelineManager: React.FC<TimelineManagerProps> = ({
 
   return (
     <div className="space-y-6 animate-fade-in">
-      
       {/* Timeline Header & Progress Metrics */}
       <div className="p-5 bg-white rounded-2xl border border-slate-200 shadow-xs flex flex-col md:flex-row md:items-center justify-between gap-4">
         <div>
@@ -66,7 +57,8 @@ export const TimelineManager: React.FC<TimelineManagerProps> = ({
             </span>
           </div>
           <p className="text-xs text-slate-500 mt-1">
-            Organized chronologically by deadlines with automated ripple warnings if predecessor tasks delay.
+            Organized chronologically by deadlines with automated ripple warnings if predecessor
+            tasks delay.
           </p>
         </div>
 
@@ -96,11 +88,15 @@ export const TimelineManager: React.FC<TimelineManagerProps> = ({
             <span>Cascade Delay Alert — Downstream Tasks Blocked!</span>
           </div>
           <p className="text-xs text-rose-800 leading-relaxed">
-            When a foundational prerequisite slips (like Venue & Date lock), downstream vendors and invitations are placed on hold. {delayedTasks.length} milestones are currently affected:
+            When a foundational prerequisite slips (like Venue & Date lock), downstream vendors and
+            invitations are placed on hold. {delayedTasks.length} milestones are currently affected:
           </p>
           <div className="flex flex-wrap gap-2 pt-1">
             {delayedTasks.map((t) => (
-              <span key={t.id} className="px-2.5 py-1 rounded-lg text-xs font-semibold bg-rose-200/70 text-rose-900">
+              <span
+                key={t.id}
+                className="px-2.5 py-1 rounded-lg text-xs font-semibold bg-rose-200/70 text-rose-900"
+              >
                 ⚠️ {t.title}
               </span>
             ))}
@@ -156,23 +152,28 @@ export const TimelineManager: React.FC<TimelineManagerProps> = ({
                 isDelayed
                   ? 'bg-rose-50/60 border-rose-300 ring-1 ring-rose-400'
                   : task.status === 'completed'
-                  ? 'bg-slate-50/70 border-slate-200 opacity-80'
-                  : 'bg-white border-slate-200 hover:border-purple-300 hover:shadow-xs'
+                    ? 'bg-slate-50/70 border-slate-200 opacity-80'
+                    : 'bg-white border-slate-200 hover:border-purple-300 hover:shadow-xs'
               }`}
             >
               <div className="flex flex-col md:flex-row md:items-center justify-between gap-3">
-                
                 {/* Left Section: Status, Title, Prereq */}
                 <div className="flex items-start gap-3">
                   <div className="mt-0.5">{statusIcons[task.status]}</div>
                   <div>
                     <div className="flex flex-wrap items-center gap-2">
-                      <h4 className={`text-sm font-bold ${
-                        task.status === 'completed' ? 'line-through text-slate-500' : 'text-slate-900'
-                      }`}>
+                      <h4
+                        className={`text-sm font-bold ${
+                          task.status === 'completed'
+                            ? 'line-through text-slate-500'
+                            : 'text-slate-900'
+                        }`}
+                      >
                         {task.title}
                       </h4>
-                      <span className={`px-2 py-0.5 rounded text-[10px] font-bold uppercase border ${priorityColors[task.priority]}`}>
+                      <span
+                        className={`px-2 py-0.5 rounded text-[10px] font-bold uppercase border ${priorityColors[task.priority]}`}
+                      >
                         {task.priority}
                       </span>
                       <span className="text-xs text-slate-400 font-mono">
@@ -182,9 +183,7 @@ export const TimelineManager: React.FC<TimelineManagerProps> = ({
 
                     {/* Notes & Guidance */}
                     {task.notes && (
-                      <p className="text-xs text-slate-600 mt-1 leading-relaxed">
-                        {task.notes}
-                      </p>
+                      <p className="text-xs text-slate-600 mt-1 leading-relaxed">{task.notes}</p>
                     )}
 
                     {/* Dependency Tag */}
@@ -199,8 +198,8 @@ export const TimelineManager: React.FC<TimelineManagerProps> = ({
                               pr.status === 'completed'
                                 ? 'bg-emerald-100 text-emerald-800'
                                 : pr.status === 'delayed'
-                                ? 'bg-rose-100 text-rose-800 font-bold'
-                                : 'bg-slate-100 text-slate-700'
+                                  ? 'bg-rose-100 text-rose-800 font-bold'
+                                  : 'bg-slate-100 text-slate-700'
                             }`}
                           >
                             {pr.title} ({pr.status})
@@ -224,9 +223,7 @@ export const TimelineManager: React.FC<TimelineManagerProps> = ({
                     <span className="text-[10px] uppercase font-bold text-slate-400 block">
                       Target Deadline
                     </span>
-                    <span className="text-xs font-bold text-slate-800">
-                      {task.deadlineDate}
-                    </span>
+                    <span className="text-xs font-bold text-slate-800">{task.deadlineDate}</span>
                   </div>
 
                   <select
@@ -237,10 +234,10 @@ export const TimelineManager: React.FC<TimelineManagerProps> = ({
                       task.status === 'completed'
                         ? 'bg-emerald-50 text-emerald-800 border-emerald-300'
                         : task.status === 'delayed'
-                        ? 'bg-rose-50 text-rose-800 border-rose-300'
-                        : task.status === 'in_progress'
-                        ? 'bg-blue-50 text-blue-800 border-blue-300'
-                        : 'bg-slate-100 text-slate-700 border-slate-300'
+                          ? 'bg-rose-50 text-rose-800 border-rose-300'
+                          : task.status === 'in_progress'
+                            ? 'bg-blue-50 text-blue-800 border-blue-300'
+                            : 'bg-slate-100 text-slate-700 border-slate-300'
                     }`}
                   >
                     <option value="pending">Pending</option>
@@ -249,13 +246,11 @@ export const TimelineManager: React.FC<TimelineManagerProps> = ({
                     <option value="delayed">Delayed ⚠️</option>
                   </select>
                 </div>
-
               </div>
             </div>
           );
         })}
       </div>
-
     </div>
   );
 };

@@ -5,12 +5,12 @@ export type ExperienceTier = 'budget-smart' | 'balanced-comfort' | 'premium-luxu
 export type CurrencyCode = 'INR' | 'USD' | 'EUR' | 'GBP';
 
 export interface PriorityWeights {
-  catering: number;     // 1 to 5
-  venue: number;        // 1 to 5
-  decoration: number;   // 1 to 5
-  photography: number;  // 1 to 5
-  entertainment: number;// 1 to 5
-  contingency: number;  // 1 to 5
+  catering: number; // 1 to 5
+  venue: number; // 1 to 5
+  decoration: number; // 1 to 5
+  photography: number; // 1 to 5
+  entertainment: number; // 1 to 5
+  contingency: number; // 1 to 5
 }
 
 export interface DemographicProfile {
@@ -41,7 +41,7 @@ export interface EventProfile {
   updatedAt: string;
 }
 
-export type BudgetCategoryKey = 
+export type BudgetCategoryKey =
   | 'venue'
   | 'catering'
   | 'decoration'

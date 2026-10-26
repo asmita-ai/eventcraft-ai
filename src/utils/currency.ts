@@ -11,7 +11,11 @@ export const CURRENCY_SYMBOLS: Record<CurrencyCode, string> = {
  * Format a number into clean currency format.
  * For INR, supports standard Indian lakh/crore formatting or readable compact format.
  */
-export function formatCurrency(amount: number, currency: CurrencyCode = 'INR', compact = false): string {
+export function formatCurrency(
+  amount: number,
+  currency: CurrencyCode = 'INR',
+  compact = false
+): string {
   if (isNaN(amount)) return `${CURRENCY_SYMBOLS[currency]}0`;
 
   if (compact) {

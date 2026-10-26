@@ -1,11 +1,11 @@
-import { 
-  EventProfile, 
-  EventPlan, 
-  BudgetItem, 
-  TimelineTask, 
+import {
+  EventProfile,
+  EventPlan,
+  BudgetItem,
+  TimelineTask,
   TradeOffSuggestion,
   VendorQuoteComparison,
-  PersonalizedIdea 
+  PersonalizedIdea,
 } from '../types';
 import { generateHeuristicPlan } from './heuristicGenerator';
 
@@ -47,7 +47,10 @@ function cleanAndParseJSON<T>(rawText: string, fallback: T): T {
     }
     return JSON.parse(cleaned) as T;
   } catch (err) {
-    console.warn('[Gemini Parser] Failed to parse JSON response. Falling back to heuristic defaults.', err);
+    console.warn(
+      '[Gemini Parser] Failed to parse JSON response. Falling back to heuristic defaults.',
+      err
+    );
     return fallback;
   }
 }
@@ -55,10 +58,15 @@ function cleanAndParseJSON<T>(rawText: string, fallback: T): T {
 /**
  * Internal helper to query Google Gemini REST endpoint with model fallback
  */
-async function callGeminiAPI(systemInstruction: string, userPrompt: string): Promise<string | null> {
+async function callGeminiAPI(
+  systemInstruction: string,
+  userPrompt: string
+): Promise<string | null> {
   const apiKey = getStoredApiKey();
   if (!apiKey) {
-    console.info('[Gemini API] No API key detected. Operating in high-fidelity deterministic heuristic mode.');
+    console.info(
+      '[Gemini API] No API key detected. Operating in high-fidelity deterministic heuristic mode.'
+    );
     return null;
   }
 
@@ -205,67 +213,73 @@ CRITICAL RULES:
   const parsed = cleanAndParseJSON<Partial<EventPlan>>(aiResponse, {});
 
   // Sanitize and merge with fallback guarantees
-  const budgetItems: BudgetItem[] = Array.isArray(parsed.budgetItems) && parsed.budgetItems.length > 0
-    ? parsed.budgetItems.map((item, idx) => ({
-        id: item.id || `budget-item-${idx}`,
-        category: item.category || 'contingency',
-        label: item.label || 'Item',
-        allocatedAmount: Number(item.allocatedAmount) || 10000,
-        actualAmount: undefined,
-        isEstimate: true,
-        confidenceScore: 0.9,
-        isVariableWithGuests: Boolean(item.isVariableWithGuests),
-        perGuestCost: item.perGuestCost,
-        notes: item.notes || '',
-      }))
-    : fallbackPlan.budgetItems;
+  const budgetItems: BudgetItem[] =
+    Array.isArray(parsed.budgetItems) && parsed.budgetItems.length > 0
+      ? parsed.budgetItems.map((item, idx) => ({
+          id: item.id || `budget-item-${idx}`,
+          category: item.category || 'contingency',
+          label: item.label || 'Item',
+          allocatedAmount: Number(item.allocatedAmount) || 10000,
+          actualAmount: undefined,
+          isEstimate: true,
+          confidenceScore: 0.9,
+          isVariableWithGuests: Boolean(item.isVariableWithGuests),
+          perGuestCost: item.perGuestCost,
+          notes: item.notes || '',
+        }))
+      : fallbackPlan.budgetItems;
 
-  const tradeOffs: TradeOffSuggestion[] = Array.isArray(parsed.tradeOffs) && parsed.tradeOffs.length > 0
-    ? parsed.tradeOffs.map((t, idx) => ({
-        id: t.id || `tradeoff-${idx}`,
-        title: t.title || 'Optimization Option',
-        description: t.description || '',
-        category: t.category || 'decoration',
-        savingsAmount: Number(t.savingsAmount) || 15000,
-        impactLevel: t.impactLevel || 'low',
-        impactExplanation: t.impactExplanation || '',
-        applied: false,
-      }))
-    : fallbackPlan.tradeOffs;
+  const tradeOffs: TradeOffSuggestion[] =
+    Array.isArray(parsed.tradeOffs) && parsed.tradeOffs.length > 0
+      ? parsed.tradeOffs.map((t, idx) => ({
+          id: t.id || `tradeoff-${idx}`,
+          title: t.title || 'Optimization Option',
+          description: t.description || '',
+          category: t.category || 'decoration',
+          savingsAmount: Number(t.savingsAmount) || 15000,
+          impactLevel: t.impactLevel || 'low',
+          impactExplanation: t.impactExplanation || '',
+          applied: false,
+        }))
+      : fallbackPlan.tradeOffs;
 
-  const timeline: TimelineTask[] = Array.isArray(parsed.timeline) && parsed.timeline.length > 0
-    ? parsed.timeline.map((t, idx) => {
-        const days = Number(t.daysBeforeEvent) || 30;
-        const targetMs = new Date(profile.targetDate).getTime();
-        const deadlineDate = new Date(targetMs - days * 24 * 60 * 60 * 1000).toISOString().split('T')[0];
-        return {
-          id: t.id || `task-${idx}`,
-          title: t.title || 'Event Milestone',
-          category: t.category || 'general',
-          deadlineDate: t.deadlineDate || deadlineDate,
-          daysBeforeEvent: days,
-          priority: t.priority || 'medium',
-          status: t.status || 'pending',
-          dependencies: Array.isArray(t.dependencies) ? t.dependencies : [],
-          cascadeImpactDesc: t.cascadeImpactDesc || '',
-          assignedTo: t.assignedTo || 'Organizer',
-          notes: t.notes || '',
-        };
-      })
-    : fallbackPlan.timeline;
+  const timeline: TimelineTask[] =
+    Array.isArray(parsed.timeline) && parsed.timeline.length > 0
+      ? parsed.timeline.map((t, idx) => {
+          const days = Number(t.daysBeforeEvent) || 30;
+          const targetMs = new Date(profile.targetDate).getTime();
+          const deadlineDate = new Date(targetMs - days * 24 * 60 * 60 * 1000)
+            .toISOString()
+            .split('T')[0];
+          return {
+            id: t.id || `task-${idx}`,
+            title: t.title || 'Event Milestone',
+            category: t.category || 'general',
+            deadlineDate: t.deadlineDate || deadlineDate,
+            daysBeforeEvent: days,
+            priority: t.priority || 'medium',
+            status: t.status || 'pending',
+            dependencies: Array.isArray(t.dependencies) ? t.dependencies : [],
+            cascadeImpactDesc: t.cascadeImpactDesc || '',
+            assignedTo: t.assignedTo || 'Organizer',
+            notes: t.notes || '',
+          };
+        })
+      : fallbackPlan.timeline;
 
-  const personalizedIdeas: PersonalizedIdea[] = Array.isArray(parsed.personalizedIdeas) && parsed.personalizedIdeas.length > 0
-    ? parsed.personalizedIdeas.map((idea, idx) => ({
-        id: idea.id || `idea-${idx}`,
-        title: idea.title || 'Personalized Concept',
-        category: idea.category || 'theme',
-        concept: idea.concept || '',
-        whyItFitsThisAudience: idea.whyItFitsThisAudience || '',
-        estimatedCostRange: idea.estimatedCostRange || `${profile.currency} 10,000`,
-        budgetFriendlyAlternative: idea.budgetFriendlyAlternative || '',
-        favorited: false,
-      }))
-    : fallbackPlan.personalizedIdeas;
+  const personalizedIdeas: PersonalizedIdea[] =
+    Array.isArray(parsed.personalizedIdeas) && parsed.personalizedIdeas.length > 0
+      ? parsed.personalizedIdeas.map((idea, idx) => ({
+          id: idea.id || `idea-${idx}`,
+          title: idea.title || 'Personalized Concept',
+          category: idea.category || 'theme',
+          concept: idea.concept || '',
+          whyItFitsThisAudience: idea.whyItFitsThisAudience || '',
+          estimatedCostRange: idea.estimatedCostRange || `${profile.currency} 10,000`,
+          budgetFriendlyAlternative: idea.budgetFriendlyAlternative || '',
+          favorited: false,
+        }))
+      : fallbackPlan.personalizedIdeas;
 
   return {
     profile,
@@ -303,7 +317,11 @@ Analyze the following vendor quotes for category "${category}" in ${profile.city
 Flag any hidden fees (taxes, generator diesel, overtime penalties, service fees, breakage) and draft critical questions the user must ask before signing.
 Return a JSON array of the updated quotes matching the schema with populated "hiddenChargesFlagged" and "clarificationQuestions".`;
 
-  const userContext = JSON.stringify({ quotes, guestCount: profile.guestCount, totalBudget: profile.totalBudget });
+  const userContext = JSON.stringify({
+    quotes,
+    guestCount: profile.guestCount,
+    totalBudget: profile.totalBudget,
+  });
   const response = await callGeminiAPI(systemPrompt, userContext);
   if (!response) return quotes;
 

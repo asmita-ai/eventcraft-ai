@@ -6,7 +6,6 @@ import { TimelineManager } from '../components/timeline/TimelineManager';
 import { WEDDING_PRESET, generateHeuristicPlan } from '../services/heuristicGenerator';
 
 describe('EventCraft UI Components & Accessibility', () => {
-
   const plan = generateHeuristicPlan(WEDDING_PRESET);
 
   it('renders Header with logo, presets, and accessibility labels', () => {
@@ -60,7 +59,8 @@ describe('EventCraft UI Components & Accessibility', () => {
 
     expect(screen.getByText(/Dependency-Aware Execution Roadmap/i)).toBeInTheDocument();
     expect(screen.getByText(/Cascade Ripple Simulator:/i)).toBeInTheDocument();
-    expect(screen.getAllByText(/Lock Venue & Contractually Confirm Event Date/i).length).toBeGreaterThanOrEqual(1);
+    expect(
+      screen.getAllByText(/Lock Venue & Contractually Confirm Event Date/i).length
+    ).toBeGreaterThanOrEqual(1);
   });
-
 });

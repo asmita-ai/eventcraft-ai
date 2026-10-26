@@ -1,15 +1,15 @@
 import React, { useState } from 'react';
 import confetti from 'canvas-confetti';
-import { 
-  GitCompare, 
-  AlertTriangle, 
-  Users, 
-  Calendar, 
-  IndianRupee, 
-  CheckCircle2, 
-  Zap, 
+import {
+  GitCompare,
+  AlertTriangle,
+  Users,
+  Calendar,
+  IndianRupee,
+  CheckCircle2,
+  Zap,
   RotateCcw,
-  Sparkles
+  Sparkles,
 } from 'lucide-react';
 import { EventProfile, BudgetItem, TimelineTask, PlanRevisionAnalysis } from '../../types';
 import { analyzePlanRevision } from '../../utils/calculations';
@@ -19,7 +19,11 @@ interface PlanRevisionSimulatorProps {
   profile: EventProfile;
   budgetItems: BudgetItem[];
   timeline: TimelineTask[];
-  onApplyRevisedPlan: (revisedProfile: EventProfile, revisedBudget: BudgetItem[], analysisNotes: string) => void;
+  onApplyRevisedPlan: (
+    revisedProfile: EventProfile,
+    revisedBudget: BudgetItem[],
+    analysisNotes: string
+  ) => void;
 }
 
 export const PlanRevisionSimulator: React.FC<PlanRevisionSimulatorProps> = ({
@@ -35,7 +39,7 @@ export const PlanRevisionSimulator: React.FC<PlanRevisionSimulatorProps> = ({
   const [scenarioNotification, setScenarioNotification] = useState<string | null>(null);
 
   // Active analysis results
-  const [analysis, setAnalysis] = useState<PlanRevisionAnalysis>(() => 
+  const [analysis, setAnalysis] = useState<PlanRevisionAnalysis>(() =>
     analyzePlanRevision(profile, budgetItems, timeline, {
       guestDelta: 0,
       budgetDeltaPercent: 0,
@@ -57,7 +61,9 @@ export const PlanRevisionSimulator: React.FC<PlanRevisionSimulatorProps> = ({
     setBudgetDeltaPercent(-15);
     setDateShiftWeeks(-2);
     handleRunAnalysis(50, -15, -2);
-    setScenarioNotification('⚡ Stress Scenario Activated: +50 Guests, -15% Budget, -2 Weeks Prep Window. Ripple effects recalculated!');
+    setScenarioNotification(
+      '⚡ Stress Scenario Activated: +50 Guests, -15% Budget, -2 Weeks Prep Window. Ripple effects recalculated!'
+    );
     try {
       confetti({ particleCount: 50, spread: 60, origin: { y: 0.6 } });
     } catch {
@@ -78,7 +84,11 @@ export const PlanRevisionSimulator: React.FC<PlanRevisionSimulatorProps> = ({
       ...profile,
       guestCount: Math.max(10, profile.guestCount + analysis.guestCountDelta),
       totalBudget: Math.max(10000, profile.totalBudget + analysis.budgetDelta),
-      targetDate: new Date(new Date(profile.targetDate).getTime() + analysis.dateShiftWeeks * 7 * 24 * 60 * 60 * 1000).toISOString().split('T')[0],
+      targetDate: new Date(
+        new Date(profile.targetDate).getTime() + analysis.dateShiftWeeks * 7 * 24 * 60 * 60 * 1000
+      )
+        .toISOString()
+        .split('T')[0],
       updatedAt: new Date().toISOString(),
     };
 
@@ -89,7 +99,10 @@ export const PlanRevisionSimulator: React.FC<PlanRevisionSimulatorProps> = ({
   const isScenarioActive = guestDelta !== 0 || budgetDeltaPercent !== 0 || dateShiftWeeks !== 0;
 
   const currentTotalBudget = profile.totalBudget;
-  const newTotalBudget = Math.max(10000, Math.round(profile.totalBudget * (1 + budgetDeltaPercent / 100)));
+  const newTotalBudget = Math.max(
+    10000,
+    Math.round(profile.totalBudget * (1 + budgetDeltaPercent / 100))
+  );
   const newGuestCount = Math.max(10, profile.guestCount + guestDelta);
 
   const oldPerGuest = Math.round(currentTotalBudget / Math.max(profile.guestCount, 1));
@@ -97,16 +110,19 @@ export const PlanRevisionSimulator: React.FC<PlanRevisionSimulatorProps> = ({
 
   return (
     <div className="space-y-6 animate-fade-in">
-      
       {/* Top Banner explaining the Adaptive Revision Engine */}
-      <div className={`p-5 rounded-2xl border shadow-xs transition-all ${
-        isScenarioActive 
-          ? 'bg-gradient-to-r from-amber-500/15 via-rose-500/10 to-purple-500/15 border-amber-300' 
-          : 'bg-gradient-to-r from-purple-50 to-pink-50 border-purple-200'
-      }`}>
+      <div
+        className={`p-5 rounded-2xl border shadow-xs transition-all ${
+          isScenarioActive
+            ? 'bg-gradient-to-r from-amber-500/15 via-rose-500/10 to-purple-500/15 border-amber-300'
+            : 'bg-gradient-to-r from-purple-50 to-pink-50 border-purple-200'
+        }`}
+      >
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
           <div className="flex items-start gap-3">
-            <div className={`p-2.5 rounded-xl text-white shadow-xs ${isScenarioActive ? 'bg-amber-600' : 'bg-purple-600'}`}>
+            <div
+              className={`p-2.5 rounded-xl text-white shadow-xs ${isScenarioActive ? 'bg-amber-600' : 'bg-purple-600'}`}
+            >
               <Zap className="w-5 h-5" />
             </div>
             <div>
@@ -114,14 +130,18 @@ export const PlanRevisionSimulator: React.FC<PlanRevisionSimulatorProps> = ({
                 <h3 className="font-extrabold text-slate-900 text-sm">
                   Mid-Flight Plan Revision & Ripple Effect Simulator
                 </h3>
-                <span className={`px-2 py-0.5 rounded text-[10px] font-extrabold uppercase ${
-                  isScenarioActive ? 'bg-amber-200 text-amber-950' : 'bg-purple-100 text-purple-800'
-                }`}>
+                <span
+                  className={`px-2 py-0.5 rounded text-[10px] font-extrabold uppercase ${
+                    isScenarioActive
+                      ? 'bg-amber-200 text-amber-950'
+                      : 'bg-purple-100 text-purple-800'
+                  }`}
+                >
                   {isScenarioActive ? 'Stress Scenario Active' : 'Baseline Active'}
                 </span>
               </div>
               <p className="text-xs text-slate-600 mt-1 max-w-2xl leading-relaxed">
-                {isScenarioActive 
+                {isScenarioActive
                   ? 'Simulating mid-flight shift: recalculating per-guest allocations, venue capacities, and timeline deadlines dynamically without restarting from scratch.'
                   : 'Currently showing baseline event plan. Click the button below to test how the AI dynamically rebalances when requirements pivot mid-stream.'}
               </p>
@@ -157,7 +177,7 @@ export const PlanRevisionSimulator: React.FC<PlanRevisionSimulatorProps> = ({
               <Sparkles className="w-4 h-4 text-amber-600 shrink-0" />
               {scenarioNotification}
             </span>
-            <button 
+            <button
               onClick={() => setScenarioNotification(null)}
               className="text-[11px] text-slate-500 hover:text-slate-800"
             >
@@ -174,22 +194,23 @@ export const PlanRevisionSimulator: React.FC<PlanRevisionSimulatorProps> = ({
             <GitCompare className="w-4 h-4 text-purple-600" />
             Interactive Change Parameters (Drag sliders or use preset):
           </h4>
-          <span className="text-[11px] text-slate-500">
-            Real-time constraint rebalancing
-          </span>
+          <span className="text-[11px] text-slate-500">Real-time constraint rebalancing</span>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
-          
           {/* Parameter 1: Guest Count Shift */}
-          <div className={`p-4 rounded-xl border space-y-2 transition-all ${
-            guestDelta !== 0 ? 'bg-amber-50/70 border-amber-300' : 'bg-slate-50 border-slate-200'
-          }`}>
+          <div
+            className={`p-4 rounded-xl border space-y-2 transition-all ${
+              guestDelta !== 0 ? 'bg-amber-50/70 border-amber-300' : 'bg-slate-50 border-slate-200'
+            }`}
+          >
             <div className="flex justify-between items-center text-xs">
               <span className="font-semibold text-slate-700 flex items-center gap-1.5">
                 <Users className="w-3.5 h-3.5 text-blue-600" /> Guest Count Shift
               </span>
-              <span className={`font-mono font-extrabold text-sm ${guestDelta > 0 ? 'text-amber-700' : guestDelta < 0 ? 'text-blue-700' : 'text-slate-700'}`}>
+              <span
+                className={`font-mono font-extrabold text-sm ${guestDelta > 0 ? 'text-amber-700' : guestDelta < 0 ? 'text-blue-700' : 'text-slate-700'}`}
+              >
                 {guestDelta > 0 ? `+${guestDelta}` : guestDelta} Guests
               </span>
             </div>
@@ -218,14 +239,20 @@ export const PlanRevisionSimulator: React.FC<PlanRevisionSimulatorProps> = ({
           </div>
 
           {/* Parameter 2: Budget Shift */}
-          <div className={`p-4 rounded-xl border space-y-2 transition-all ${
-            budgetDeltaPercent !== 0 ? 'bg-rose-50/70 border-rose-300' : 'bg-slate-50 border-slate-200'
-          }`}>
+          <div
+            className={`p-4 rounded-xl border space-y-2 transition-all ${
+              budgetDeltaPercent !== 0
+                ? 'bg-rose-50/70 border-rose-300'
+                : 'bg-slate-50 border-slate-200'
+            }`}
+          >
             <div className="flex justify-between items-center text-xs">
               <span className="font-semibold text-slate-700 flex items-center gap-1.5">
                 <IndianRupee className="w-3.5 h-3.5 text-purple-600" /> Target Budget Shift
               </span>
-              <span className={`font-mono font-extrabold text-sm ${budgetDeltaPercent < 0 ? 'text-rose-600' : budgetDeltaPercent > 0 ? 'text-emerald-700' : 'text-slate-700'}`}>
+              <span
+                className={`font-mono font-extrabold text-sm ${budgetDeltaPercent < 0 ? 'text-rose-600' : budgetDeltaPercent > 0 ? 'text-emerald-700' : 'text-slate-700'}`}
+              >
                 {budgetDeltaPercent > 0 ? `+${budgetDeltaPercent}` : budgetDeltaPercent}%
               </span>
             </div>
@@ -249,20 +276,32 @@ export const PlanRevisionSimulator: React.FC<PlanRevisionSimulatorProps> = ({
             />
             <div className="flex justify-between text-[11px] text-slate-500 font-medium">
               <span>{formatCurrency(currentTotalBudget, profile.currency, true)}</span>
-              <span className="font-bold text-slate-800">{formatCurrency(newTotalBudget, profile.currency, true)}</span>
+              <span className="font-bold text-slate-800">
+                {formatCurrency(newTotalBudget, profile.currency, true)}
+              </span>
             </div>
           </div>
 
           {/* Parameter 3: Date Compression */}
-          <div className={`p-4 rounded-xl border space-y-2 transition-all ${
-            dateShiftWeeks !== 0 ? 'bg-purple-50/70 border-purple-300' : 'bg-slate-50 border-slate-200'
-          }`}>
+          <div
+            className={`p-4 rounded-xl border space-y-2 transition-all ${
+              dateShiftWeeks !== 0
+                ? 'bg-purple-50/70 border-purple-300'
+                : 'bg-slate-50 border-slate-200'
+            }`}
+          >
             <div className="flex justify-between items-center text-xs">
               <span className="font-semibold text-slate-700 flex items-center gap-1.5">
                 <Calendar className="w-3.5 h-3.5 text-rose-600" /> Date Shift
               </span>
-              <span className={`font-mono font-extrabold text-sm ${dateShiftWeeks < 0 ? 'text-rose-600' : dateShiftWeeks > 0 ? 'text-emerald-700' : 'text-slate-700'}`}>
-                {dateShiftWeeks < 0 ? `${Math.abs(dateShiftWeeks)} Wks Earlier` : dateShiftWeeks > 0 ? `+${dateShiftWeeks} Wks Later` : 'No Date Shift'}
+              <span
+                className={`font-mono font-extrabold text-sm ${dateShiftWeeks < 0 ? 'text-rose-600' : dateShiftWeeks > 0 ? 'text-emerald-700' : 'text-slate-700'}`}
+              >
+                {dateShiftWeeks < 0
+                  ? `${Math.abs(dateShiftWeeks)} Wks Earlier`
+                  : dateShiftWeeks > 0
+                    ? `+${dateShiftWeeks} Wks Later`
+                    : 'No Date Shift'}
               </span>
             </div>
             <input
@@ -286,26 +325,36 @@ export const PlanRevisionSimulator: React.FC<PlanRevisionSimulatorProps> = ({
             <div className="flex justify-between text-[11px] text-slate-500 font-medium">
               <span>Target: {profile.targetDate}</span>
               <span className="font-bold text-slate-800">
-                {dateShiftWeeks < 0 ? `-${Math.abs(dateShiftWeeks) * 7}d crunch` : dateShiftWeeks > 0 ? `+${dateShiftWeeks * 7}d buffer` : 'Same Date'}
+                {dateShiftWeeks < 0
+                  ? `-${Math.abs(dateShiftWeeks) * 7}d crunch`
+                  : dateShiftWeeks > 0
+                    ? `+${dateShiftWeeks * 7}d buffer`
+                    : 'Same Date'}
               </span>
             </div>
           </div>
-
         </div>
-
       </div>
 
       {/* METRIC DELTA COMPARISON BAR */}
       <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-        
         <div className="p-4 bg-white rounded-2xl border border-slate-200 shadow-xs flex items-center justify-between">
           <div>
-            <span className="text-[10px] font-bold text-slate-400 uppercase">Headcount Capacity</span>
+            <span className="text-[10px] font-bold text-slate-400 uppercase">
+              Headcount Capacity
+            </span>
             <div className="text-lg font-black text-slate-900 mt-0.5">
-              {profile.guestCount} → <span className={guestDelta > 0 ? 'text-purple-700' : 'text-slate-800'}>{newGuestCount}</span>
+              {profile.guestCount} →{' '}
+              <span className={guestDelta > 0 ? 'text-purple-700' : 'text-slate-800'}>
+                {newGuestCount}
+              </span>
             </div>
             <span className="text-[11px] text-slate-500">
-              {guestDelta > 0 ? `+${guestDelta} additional attendees` : guestDelta < 0 ? `${guestDelta} attendees` : 'Baseline headcount'}
+              {guestDelta > 0
+                ? `+${guestDelta} additional attendees`
+                : guestDelta < 0
+                  ? `${guestDelta} attendees`
+                  : 'Baseline headcount'}
             </span>
           </div>
           <div className="text-xl">👥</div>
@@ -316,7 +365,15 @@ export const PlanRevisionSimulator: React.FC<PlanRevisionSimulatorProps> = ({
             <span className="text-[10px] font-bold text-slate-400 uppercase">Budget Pool</span>
             <div className="text-lg font-black text-slate-900 mt-0.5">
               {formatCurrency(currentTotalBudget, profile.currency, true)} →{' '}
-              <span className={budgetDeltaPercent < 0 ? 'text-rose-600' : budgetDeltaPercent > 0 ? 'text-emerald-700' : 'text-slate-800'}>
+              <span
+                className={
+                  budgetDeltaPercent < 0
+                    ? 'text-rose-600'
+                    : budgetDeltaPercent > 0
+                      ? 'text-emerald-700'
+                      : 'text-slate-800'
+                }
+              >
                 {formatCurrency(newTotalBudget, profile.currency, true)}
               </span>
             </div>
@@ -332,17 +389,24 @@ export const PlanRevisionSimulator: React.FC<PlanRevisionSimulatorProps> = ({
             <span className="text-[10px] font-bold text-slate-400 uppercase">Per-Guest Ratio</span>
             <div className="text-lg font-black text-slate-900 mt-0.5">
               {formatCurrency(oldPerGuest, profile.currency)} →{' '}
-              <span className={newPerGuest < oldPerGuest ? 'text-amber-600 font-bold' : 'text-slate-800'}>
+              <span
+                className={
+                  newPerGuest < oldPerGuest ? 'text-amber-600 font-bold' : 'text-slate-800'
+                }
+              >
                 {formatCurrency(newPerGuest, profile.currency)}
               </span>
             </div>
             <span className="text-[11px] text-slate-500">
-              {newPerGuest < oldPerGuest ? 'Variable item squeeze' : newPerGuest > oldPerGuest ? 'Expanded headroom' : 'Equal to baseline'}
+              {newPerGuest < oldPerGuest
+                ? 'Variable item squeeze'
+                : newPerGuest > oldPerGuest
+                  ? 'Expanded headroom'
+                  : 'Equal to baseline'}
             </span>
           </div>
           <div className="text-xl">📉</div>
         </div>
-
       </div>
 
       {/* RIPPLE EFFECT ANALYSIS CARDS */}
@@ -363,7 +427,10 @@ export const PlanRevisionSimulator: React.FC<PlanRevisionSimulatorProps> = ({
           <div className="p-6 bg-slate-50 rounded-2xl border border-slate-200 text-center text-slate-500 text-xs">
             <CheckCircle2 className="w-8 h-8 text-emerald-500 mx-auto mb-2" />
             <span className="font-bold text-slate-700 block">Baseline Plan Stable</span>
-            <span>No shifts applied. Click <strong>"Load Stress Scenario"</strong> above to test how EventCraft AI rebalances unexpected changes.</span>
+            <span>
+              No shifts applied. Click <strong>"Load Stress Scenario"</strong> above to test how
+              EventCraft AI rebalances unexpected changes.
+            </span>
           </div>
         ) : (
           <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
@@ -381,16 +448,19 @@ export const PlanRevisionSimulator: React.FC<PlanRevisionSimulatorProps> = ({
               }[impact.severity];
 
               return (
-                <div key={impact.id} className={`p-4 rounded-2xl border shadow-2xs space-y-2 ${severityStyle} animate-fade-in`}>
+                <div
+                  key={impact.id}
+                  className={`p-4 rounded-2xl border shadow-2xs space-y-2 ${severityStyle} animate-fade-in`}
+                >
                   <div className="flex items-center justify-between">
                     <span className="font-bold text-xs">{impact.title}</span>
-                    <span className={`px-2 py-0.5 rounded text-[10px] font-extrabold uppercase ${badgeStyle}`}>
+                    <span
+                      className={`px-2 py-0.5 rounded text-[10px] font-extrabold uppercase ${badgeStyle}`}
+                    >
                       {impact.severity}
                     </span>
                   </div>
-                  <p className="text-xs leading-relaxed opacity-90">
-                    {impact.description}
-                  </p>
+                  <p className="text-xs leading-relaxed opacity-90">{impact.description}</p>
                   <div className="p-2.5 bg-white/70 rounded-xl text-[11px] font-medium border border-black/5 flex items-start gap-1.5">
                     <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600 shrink-0 mt-0.5" />
                     <span>
@@ -407,11 +477,10 @@ export const PlanRevisionSimulator: React.FC<PlanRevisionSimulatorProps> = ({
       {/* APPLY REVISED PLAN ACTION BAR */}
       <div className="p-5 bg-white rounded-2xl border border-purple-200 shadow-md flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
-          <h4 className="text-sm font-extrabold text-slate-900">
-            Adopt Rebalanced Plan
-          </h4>
+          <h4 className="text-sm font-extrabold text-slate-900">Adopt Rebalanced Plan</h4>
           <p className="text-xs text-slate-500 mt-0.5">
-            Applies the recalculated budget items and updates affected milestones in the roadmap without losing previous customizations.
+            Applies the recalculated budget items and updates affected milestones in the roadmap
+            without losing previous customizations.
           </p>
         </div>
 
@@ -424,7 +493,6 @@ export const PlanRevisionSimulator: React.FC<PlanRevisionSimulatorProps> = ({
           Apply Revised Plan to Event
         </button>
       </div>
-
     </div>
   );
 };

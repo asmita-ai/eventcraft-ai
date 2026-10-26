@@ -1,10 +1,10 @@
-import { 
-  EventProfile, 
-  TimelineTask, 
-  VendorRfpTemplate, 
-  VendorQuoteComparison, 
+import {
+  EventProfile,
+  TimelineTask,
+  VendorRfpTemplate,
+  VendorQuoteComparison,
   PersonalizedIdea,
-  EventPlan 
+  EventPlan,
 } from '../types';
 import { calculateBudgetAllocation, generateTradeOffSuggestions } from '../utils/calculations';
 
@@ -52,19 +52,23 @@ export const WEDDING_PRESET: EventProfile = {
   guestCount: 200, // 200 guests as mentioned by Srinivas
   experienceTier: 'balanced-comfort',
   priorities: {
-    catering: 5,     // Prioritizing food experience
-    venue: 4,        // Good comfortable venue
-    decoration: 2,   // Willing to simplify decor
-    photography: 4,  // Value lasting memories
-    entertainment: 3,// Moderate DJ & music
-    contingency: 4,  // Safety reserve
+    catering: 5, // Prioritizing food experience
+    venue: 4, // Good comfortable venue
+    decoration: 2, // Willing to simplify decor
+    photography: 4, // Value lasting memories
+    entertainment: 3, // Moderate DJ & music
+    contingency: 4, // Safety reserve
   },
   demographics: {
     childrenPercent: 15,
     elderlyPercent: 25,
     culturalBackground: 'North-South Fusion Wedding',
     dietaryRestrictions: ['Vegetarian Counters', 'Jain Options', 'Gluten-Free Corner'],
-    accessibilityNeeds: ['Wheelchair accessible entry', 'Ground-floor seating for elderly grandparents', 'Low-decibel quiet dining zone'],
+    accessibilityNeeds: [
+      'Wheelchair accessible entry',
+      'Ground-floor seating for elderly grandparents',
+      'Low-decibel quiet dining zone',
+    ],
   },
   mustHaves: [
     'Hot live Jalebi & Chaat station',
@@ -77,7 +81,8 @@ export const WEDDING_PRESET: EventProfile = {
     'Physical boxed invitations (happy with animated digital invite site)',
     'Celebrity DJ (happy with local high-rated acoustic performer + playlist)',
   ],
-  notes: 'Focus on warm family hospitality, exceptional food variety, and minimal stress for parents.',
+  notes:
+    'Focus on warm family hospitality, exceptional food variety, and minimal stress for parents.',
   createdAt: new Date().toISOString(),
   updatedAt: new Date().toISOString(),
 };
@@ -150,8 +155,15 @@ export const COMMUNITY_PRESET: EventProfile = {
     childrenPercent: 35,
     elderlyPercent: 20,
     culturalBackground: 'Multicultural Resident Community',
-    dietaryRestrictions: ['Strict Jain counters', 'Street food carnival stalls', 'Hygienic water points'],
-    accessibilityNeeds: ['Wide walkways for strollers & wheelchairs', 'First-aid tent & lost-child booth'],
+    dietaryRestrictions: [
+      'Strict Jain counters',
+      'Street food carnival stalls',
+      'Hygienic water points',
+    ],
+    accessibilityNeeds: [
+      'Wide walkways for strollers & wheelchairs',
+      'First-aid tent & lost-child booth',
+    ],
   },
   mustHaves: [
     'Children talent show and prize distribution',
@@ -190,7 +202,8 @@ function generateHeuristicTimeline(profile: EventProfile): TimelineTask[] {
       priority: 'critical',
       status: 'completed',
       dependencies: [],
-      cascadeImpactDesc: 'Foundational block. If delayed, all catering tastings, invitations, and decorator site visits are completely halted!',
+      cascadeImpactDesc:
+        'Foundational block. If delayed, all catering tastings, invitations, and decorator site visits are completely halted!',
       assignedTo: 'Lead Organizer / Family Elder',
       notes: 'Inspect backup generator wattage, parking capacity, and curfew timings.',
     },
@@ -231,7 +244,8 @@ function generateHeuristicTimeline(profile: EventProfile): TimelineTask[] {
       dependencies: ['task-lock-venue-date'],
       cascadeImpactDesc: 'Top cinematographers book out 3-6 months in advance.',
       assignedTo: 'Host',
-      notes: 'Ensure raw footage delivery, drone permit confirmation, and teaser reel within 7 days.',
+      notes:
+        'Ensure raw footage delivery, drone permit confirmation, and teaser reel within 7 days.',
     },
     {
       id: 'task-decor-stage-layout',
@@ -242,7 +256,8 @@ function generateHeuristicTimeline(profile: EventProfile): TimelineTask[] {
       priority: 'medium',
       status: 'pending',
       dependencies: ['task-lock-venue-date'],
-      cascadeImpactDesc: 'Needs physical venue layout measurements before approving backdrop dimensions.',
+      cascadeImpactDesc:
+        'Needs physical venue layout measurements before approving backdrop dimensions.',
       assignedTo: 'Decor Coordinator',
       notes: 'Ensure photobooth is in well-lit foyer away from heavy foot-traffic bottlenecks.',
     },
@@ -268,7 +283,8 @@ function generateHeuristicTimeline(profile: EventProfile): TimelineTask[] {
       priority: 'critical',
       status: 'pending',
       dependencies: ['task-caterer-menu', 'task-digital-invites'],
-      cascadeImpactDesc: 'Caterer purchases perishable inventory based on this final headcount lock.',
+      cascadeImpactDesc:
+        'Caterer purchases perishable inventory based on this final headcount lock.',
       assignedTo: 'Host & RSVPs',
       notes: 'Add 10% extra buffer plates above confirmed RSVPs for floating guests.',
     },
@@ -379,7 +395,9 @@ function generateHeuristicVendorQuotes(profile: EventProfile): VendorQuoteCompar
       ],
       exclusions: ['Branded mineral water bottles', 'Live chaat counter chef fee'],
       hiddenChargesFlagged: [
-        '⚠️ 18% GST billed on final invoice (not reflected in base per-plate rate of ₹' + Math.round(plateTarget * 1.15) + ')',
+        '⚠️ 18% GST billed on final invoice (not reflected in base per-plate rate of ₹' +
+          Math.round(plateTarget * 1.15) +
+          ')',
         '⚠️ Overtime service fee of ₹3,500/hour beyond 11:30 PM',
       ],
       clarificationQuestions: [
@@ -387,7 +405,11 @@ function generateHeuristicVendorQuotes(profile: EventProfile): VendorQuoteCompar
         'Is ice for mocktails purified RO ice or commercial block ice?',
       ],
       rating: 4.8,
-      pros: ['Exceptional food quality reviews', 'Flawless server etiquette', 'Comprehensive live counters'],
+      pros: [
+        'Exceptional food quality reviews',
+        'Flawless server etiquette',
+        'Comprehensive live counters',
+      ],
       cons: ['Above initial target plate budget', 'Strict cancellation refund window'],
       isShortlisted: true,
     },
@@ -413,7 +435,11 @@ function generateHeuristicVendorQuotes(profile: EventProfile): VendorQuoteCompar
         'What is the plate breakage replacement penalty rate?',
       ],
       rating: 4.4,
-      pros: ['Fits within target budget comfortably', 'Generous portion sizing', 'Great regional traditional taste'],
+      pros: [
+        'Fits within target budget comfortably',
+        'Generous portion sizing',
+        'Great regional traditional taste',
+      ],
       cons: ['Simpler table presentation', 'Limited international starter options'],
       isShortlisted: false,
     },
@@ -439,7 +465,11 @@ function generateHeuristicVendorQuotes(profile: EventProfile): VendorQuoteCompar
         'Do they supply biodegradable compostable plates for cocktail hour?',
       ],
       rating: 4.6,
-      pros: ['Youth and kid friendly food options', 'Aesthetically stunning food styling', 'Fast response time'],
+      pros: [
+        'Youth and kid friendly food options',
+        'Aesthetically stunning food styling',
+        'Fast response time',
+      ],
       cons: ['Slightly lower senior-citizen comfort food variety'],
       isShortlisted: false,
     },
@@ -459,10 +489,12 @@ function generateHeuristicIdeas(profile: EventProfile): PersonalizedIdea[] {
       id: 'idea-elderly-comfort-lounge',
       title: 'Acoustic-Friendly "Baithak" & Heritage Tea Lounge',
       category: 'accessibility',
-      concept: 'A dedicated cozy lounge zone positioned 25 meters away from speakers with cushioned armchairs, warm lighting, and traditional hot Masala Chai & filter coffee service.',
+      concept:
+        'A dedicated cozy lounge zone positioned 25 meters away from speakers with cushioned armchairs, warm lighting, and traditional hot Masala Chai & filter coffee service.',
       whyItFitsThisAudience: `Tailored for the ${d.elderlyPercent}% elderly guests who want to converse comfortably without shouting over loud music or climbing stairs.`,
       estimatedCostRange: `${profile.currency} 8,000 – 14,000`,
-      budgetFriendlyAlternative: 'Utilize venue existing sofas with rented brass samovars and handmade floral centerpieces.',
+      budgetFriendlyAlternative:
+        'Utilize venue existing sofas with rented brass samovars and handmade floral centerpieces.',
       favorited: true,
     });
   }
@@ -473,10 +505,12 @@ function generateHeuristicIdeas(profile: EventProfile): PersonalizedIdea[] {
       id: 'idea-kids-creative-corner',
       title: 'Interactive Origami, Caricature & Slime Craft Station',
       category: 'activities',
-      concept: 'A supervised activity table with a dedicated entertainer doing live balloon twisting, face painting, and caricature sketches.',
+      concept:
+        'A supervised activity table with a dedicated entertainer doing live balloon twisting, face painting, and caricature sketches.',
       whyItFitsThisAudience: `Keeps the ${d.childrenPercent}% kids joyfully engaged so parents can relax and participate in main celebration rituals.`,
       estimatedCostRange: `${profile.currency} 6,000 – 10,000`,
-      budgetFriendlyAlternative: 'DIY coloring book activity kits with non-toxic crayons and customized superhero/princess stickers placed on dinner tables.',
+      budgetFriendlyAlternative:
+        'DIY coloring book activity kits with non-toxic crayons and customized superhero/princess stickers placed on dinner tables.',
       favorited: true,
     });
   }
@@ -486,10 +520,12 @@ function generateHeuristicIdeas(profile: EventProfile): PersonalizedIdea[] {
     id: 'idea-cultural-tradition-fusion',
     title: 'Marigold Canopy & Live Shehnai / Acoustic Flute Welcome',
     category: 'theme',
-    concept: 'An entrance adorned with hanging brass bells and fresh marigolds with an artist performing soothing instrumental ragas as guests arrive.',
+    concept:
+      'An entrance adorned with hanging brass bells and fresh marigolds with an artist performing soothing instrumental ragas as guests arrive.',
     whyItFitsThisAudience: `Honors ${profile.occasion} cultural hospitality while creating an immediate sensory impact as soon as guests step in.`,
     estimatedCostRange: `${profile.currency} 12,000 – 18,000`,
-    budgetFriendlyAlternative: 'Curated high-fidelity classical instrumental playlist played over warm ambient foyer speakers with simple marigold petal rangolis.',
+    budgetFriendlyAlternative:
+      'Curated high-fidelity classical instrumental playlist played over warm ambient foyer speakers with simple marigold petal rangolis.',
     favorited: false,
   });
 
@@ -498,10 +534,13 @@ function generateHeuristicIdeas(profile: EventProfile): PersonalizedIdea[] {
     id: 'idea-signature-culinary-story',
     title: '"From Our Roots" Family Recipe Live Counter',
     category: 'food',
-    concept: 'Featuring one heirloom grandmother recipe (e.g. signature Dal Baati, Hyderabadi Haleem, or Grandma\'s Filter Coffee Cake) with a framed story card.',
-    whyItFitsThisAudience: 'Creates deep emotional connection and memorable conversation topics among extended relatives.',
+    concept:
+      "Featuring one heirloom grandmother recipe (e.g. signature Dal Baati, Hyderabadi Haleem, or Grandma's Filter Coffee Cake) with a framed story card.",
+    whyItFitsThisAudience:
+      'Creates deep emotional connection and memorable conversation topics among extended relatives.',
     estimatedCostRange: `${profile.currency} 5,000 – 8,000 extra on catering`,
-    budgetFriendlyAlternative: 'Work with existing caterer to use the family spice blend at zero extra cost.',
+    budgetFriendlyAlternative:
+      'Work with existing caterer to use the family spice blend at zero extra cost.',
     favorited: true,
   });
 

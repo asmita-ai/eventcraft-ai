@@ -1,17 +1,16 @@
 import { describe, it, expect } from 'vitest';
-import { 
-  calculateBudgetAllocation, 
-  checkBudgetOverage, 
-  generateTradeOffSuggestions, 
-  computeTimelineCascade, 
-  analyzePlanRevision 
+import {
+  calculateBudgetAllocation,
+  checkBudgetOverage,
+  generateTradeOffSuggestions,
+  computeTimelineCascade,
+  analyzePlanRevision,
 } from '../utils/calculations';
 import { formatCurrency, parseCurrencyInput } from '../utils/currency';
 import { WEDDING_PRESET } from '../services/heuristicGenerator';
 import { TimelineTask } from '../types';
 
 describe('EventCraft Calculation & Logic Engine', () => {
-
   it('allocates budget proportionally and sums exactly to total budget', () => {
     const items = calculateBudgetAllocation(WEDDING_PRESET);
     expect(items.length).toBeGreaterThan(0);
@@ -27,13 +26,13 @@ describe('EventCraft Calculation & Logic Engine', () => {
 
   it('correctly detects budget overage and calculates percentage excess', () => {
     const items = calculateBudgetAllocation(WEDDING_PRESET);
-    
+
     // Normal baseline is within budget
     const normalCheck = checkBudgetOverage(items, WEDDING_PRESET.totalBudget);
     expect(normalCheck.isOver).toBe(false);
 
     // Inflate catering by 1.5x
-    const inflatedItems = items.map((i) => 
+    const inflatedItems = items.map((i) =>
       i.category === 'catering' ? { ...i, actualAmount: i.allocatedAmount * 1.5 } : i
     );
     const overCheck = checkBudgetOverage(inflatedItems, WEDDING_PRESET.totalBudget);
@@ -165,5 +164,4 @@ describe('EventCraft Calculation & Logic Engine', () => {
     const parsed = parseCurrencyInput('₹ 8,00,000');
     expect(parsed).toBe(800000);
   });
-
 });

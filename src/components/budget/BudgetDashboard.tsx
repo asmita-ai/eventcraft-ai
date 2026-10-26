@@ -1,11 +1,5 @@
 import React, { useState } from 'react';
-import { 
-  TrendingUp, 
-  CheckCircle2, 
-  Info, 
-  ArrowRightLeft, 
-  Layers 
-} from 'lucide-react';
+import { TrendingUp, CheckCircle2, Info, ArrowRightLeft, Layers } from 'lucide-react';
 import { EventProfile, BudgetItem, TradeOffSuggestion } from '../../types';
 import { formatCurrency } from '../../utils/currency';
 import { checkBudgetOverage } from '../../utils/calculations';
@@ -48,10 +42,8 @@ export const BudgetDashboard: React.FC<BudgetDashboardProps> = ({
 
   return (
     <div className="space-y-6 animate-fade-in">
-      
       {/* Top Stat Overview Bar */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-        
         {/* Card 1: Target Budget */}
         <div className="p-4 bg-white rounded-2xl border border-slate-200 shadow-xs flex items-center justify-between">
           <div>
@@ -76,16 +68,22 @@ export const BudgetDashboard: React.FC<BudgetDashboardProps> = ({
             <span className="text-[11px] font-bold text-slate-500 uppercase tracking-wider block">
               Total Current Plan
             </span>
-            <div className={`text-xl font-extrabold mt-1 ${isOver ? 'text-rose-600' : 'text-emerald-700'}`}>
+            <div
+              className={`text-xl font-extrabold mt-1 ${isOver ? 'text-rose-600' : 'text-emerald-700'}`}
+            >
               {formatCurrency(totalAllocated, profile.currency)}
             </div>
-            <span className={`text-[11px] font-medium flex items-center gap-1 ${isOver ? 'text-rose-600' : 'text-emerald-700'}`}>
+            <span
+              className={`text-[11px] font-medium flex items-center gap-1 ${isOver ? 'text-rose-600' : 'text-emerald-700'}`}
+            >
               {isOver ? `+${percentOver}% above target` : `${Math.abs(percentOver)}% under budget`}
             </span>
           </div>
-          <div className={`w-10 h-10 rounded-xl flex items-center justify-center font-bold ${
-            isOver ? 'bg-rose-50 text-rose-600' : 'bg-emerald-50 text-emerald-700'
-          }`}>
+          <div
+            className={`w-10 h-10 rounded-xl flex items-center justify-center font-bold ${
+              isOver ? 'bg-rose-50 text-rose-600' : 'bg-emerald-50 text-emerald-700'
+            }`}
+          >
             <TrendingUp className="w-5 h-5" />
           </div>
         </div>
@@ -115,17 +113,15 @@ export const BudgetDashboard: React.FC<BudgetDashboardProps> = ({
               Quote Status
             </span>
             <div className="text-sm font-bold text-slate-800 mt-1">
-              {budgetItems.filter((i) => !i.isEstimate).length} Confirmed / {budgetItems.length} Total
+              {budgetItems.filter((i) => !i.isEstimate).length} Confirmed / {budgetItems.length}{' '}
+              Total
             </div>
-            <span className="text-[10px] text-slate-500 block">
-              Audited Estimates vs Confirmed
-            </span>
+            <span className="text-[10px] text-slate-500 block">Audited Estimates vs Confirmed</span>
           </div>
           <div className="w-10 h-10 rounded-xl bg-amber-50 text-amber-700 flex items-center justify-center font-bold">
             <Info className="w-5 h-5" />
           </div>
         </div>
-
       </div>
 
       {/* Budget Progress Bar */}
@@ -170,20 +166,26 @@ export const BudgetDashboard: React.FC<BudgetDashboardProps> = ({
       </div>
 
       {/* OVER-BUDGET TRADE-OFF ENGINE */}
-      <div className={`p-5 rounded-2xl border transition-all ${
-        isOver
-          ? 'bg-rose-50/70 border-rose-200'
-          : 'bg-gradient-to-r from-purple-50/60 to-pink-50/60 border-purple-200'
-      }`}>
+      <div
+        className={`p-5 rounded-2xl border transition-all ${
+          isOver
+            ? 'bg-rose-50/70 border-rose-200'
+            : 'bg-gradient-to-r from-purple-50/60 to-pink-50/60 border-purple-200'
+        }`}
+      >
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
           <div className="flex items-start gap-3">
-            <div className={`p-2 rounded-xl text-white ${isOver ? 'bg-rose-600' : 'bg-purple-600'}`}>
+            <div
+              className={`p-2 rounded-xl text-white ${isOver ? 'bg-rose-600' : 'bg-purple-600'}`}
+            >
               <ArrowRightLeft className="w-5 h-5" />
             </div>
             <div>
               <div className="flex items-center gap-2">
                 <h3 className="font-bold text-slate-900 text-sm">
-                  {isOver ? `Over-Budget Detected (+${percentOver}%) — Intelligent Trade-Off Engine` : 'Priority-Driven Trade-Off Explorer'}
+                  {isOver
+                    ? `Over-Budget Detected (+${percentOver}%) — Intelligent Trade-Off Engine`
+                    : 'Priority-Driven Trade-Off Explorer'}
                 </h3>
                 <span className="px-2 py-0.5 rounded-full text-[10px] font-extrabold uppercase bg-purple-100 text-purple-800">
                   Priority Protection
@@ -212,7 +214,9 @@ export const BudgetDashboard: React.FC<BudgetDashboardProps> = ({
             <div
               key={tradeoff.id}
               className={`p-3.5 rounded-xl border bg-white shadow-2xs transition-all flex flex-col justify-between ${
-                tradeoff.applied ? 'border-emerald-300 ring-1 ring-emerald-400 bg-emerald-50/40' : 'border-slate-200'
+                tradeoff.applied
+                  ? 'border-emerald-300 ring-1 ring-emerald-400 bg-emerald-50/40'
+                  : 'border-slate-200'
               }`}
             >
               <div>
@@ -279,11 +283,8 @@ export const BudgetDashboard: React.FC<BudgetDashboardProps> = ({
 
                 return (
                   <tr key={item.id} className="hover:bg-slate-50/80 transition-colors">
-                    
                     {/* Category Label */}
-                    <td className="py-3.5 px-4 font-bold text-slate-800">
-                      {item.label}
-                    </td>
+                    <td className="py-3.5 px-4 font-bold text-slate-800">{item.label}</td>
 
                     {/* Amount */}
                     <td className="py-3.5 px-4 font-extrabold text-slate-900">
@@ -356,7 +357,6 @@ export const BudgetDashboard: React.FC<BudgetDashboardProps> = ({
                         </button>
                       )}
                     </td>
-
                   </tr>
                 );
               })}
@@ -364,7 +364,6 @@ export const BudgetDashboard: React.FC<BudgetDashboardProps> = ({
           </table>
         </div>
       </div>
-
     </div>
   );
 };
